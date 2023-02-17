@@ -1,2 +1,4 @@
 /node_modules
+/expressjs-backend/node_modules
 /.vscode
+.env
