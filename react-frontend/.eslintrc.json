@@ -12,6 +12,5 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:prettier/recommended"
-  ],
-  "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
+  ]
 }
