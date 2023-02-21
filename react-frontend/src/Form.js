@@ -1,35 +1,54 @@
 import React, { useState } from "react";
 
 function Form(props) {
-  const [person, setPerson] = useState({
-    name: "",
-    job: ""
+  const [task, setTask] = useState({
+    task: "",
+    category: "",
+    time: ""
   });
   function submitForm() {
-    props.handleSubmit(person);
-    setPerson({ name: "", job: "" });
+    console.log("hello2");
+    props.handleSubmit(task);
+    setTask({ task: "", category: "", time: "" });
   }
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "job") setPerson({ name: person["name"], job: value });
-    else setPerson({ name: value, job: person["job"] });
+    console.log("hello");
+    if (name === "task") {
+      console.log("task");
+      setTask({ task: value, category: task["category"], time: task["time"] });
+    }
+    if (name === "category")
+      setTask({ task: task["task"], category: value, time: task["time"] });
+    else {
+      console.log("time");
+      setTask({ task: task["task"], category: task["category"], time: value });
+    }
   }
   return (
     <form>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="task">Task</label>
       <input
         type="text"
-        name="name"
-        id="name"
-        value={person.name}
+        name="task"
+        id="task"
+        value={task.task}
         onChange={handleChange}
       />
-      <label htmlFor="job">Job</label>
+      <label htmlFor="category">Category</label>
       <input
         type="text"
-        name="job"
-        id="job"
-        value={person.job}
+        name="category"
+        id="category"
+        value={task.category}
+        onChange={handleChange}
+      />
+      <label htmlFor="time">Time</label>
+      <input
+        type="text"
+        name="time"
+        id="time"
+        value={task.time}
         onChange={handleChange}
       />
       <input type="button" value="Submit" onClick={submitForm} />

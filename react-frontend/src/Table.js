@@ -1,25 +1,30 @@
 import React from "react";
+const data = [
+  { task: "walk the dog", category: "home", time: "20 mins" },
+  { task: "307 lab", category: "school", time: "1 hour" }
+];
 function TableHeader() {
   return (
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Job</th>
-        <th>id</th>
+        <th>Task</th>
+        <th>Category</th>
+        <th>time</th>
       </tr>
     </thead>
   );
 }
 
-function TableBody(props) {
-  const rows = props.characterData.map((row, index) => {
+function TableBody() {
+  const rows = data.map((row, index) => {
     return (
       <tr key={index}>
-        <td>{row.name}</td>
-        <td>{row.job}</td>
-        <td>{row._id}</td>
+        <td>{row.task}</td>
+        <td>{row.category}</td>
+        <td>{row.time}</td>
         <td>
-          <button onClick={() => props.removeCharacter(index)}>Delete</button>
+          <button>Delete</button>
+          <button>Mark As Done</button>
         </td>
       </tr>
     );
