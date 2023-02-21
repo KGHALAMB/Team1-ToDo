@@ -1,5 +1,4 @@
 import Table from "./Table";
-import Form from "./Form";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
@@ -72,7 +71,6 @@ function MyApp() {
   return (
     <div className="container">
       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-      <Form handleSubmit={updateList} />
     </div>
   );
 }
