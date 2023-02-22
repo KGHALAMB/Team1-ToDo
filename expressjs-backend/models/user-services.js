@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 const mongoose = require("mongoose");
 const userModel = require("./user");
 const dotenv = require("dotenv");
@@ -70,4 +68,3 @@ async function findUserByGroupList(group_list) {
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
->>>>>>> anna-spr1
