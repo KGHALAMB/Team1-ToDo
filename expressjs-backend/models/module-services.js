@@ -1,17 +1,5 @@
-const mongoose = require("mongoose");
+const connectMongooseDB = require("./mongoose.db.config");
 const userModel = require("./module");
-const dotenv = require("dotenv");
-
-dotenv.config();
-
-//mongoose.set("debug", true);
-
-mongoose
-  .connect("mongodb://localhost:27017/modules", {
-    useNewUrlParser: true, //useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));
 
 async function getModules(name, task_list, user_list) {
   let result;
