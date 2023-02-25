@@ -1,6 +1,7 @@
+const connectMongoDB = require("./mongoose.db.config");
 const userModel = require("./user");
 
-connectMongooseDB();
+connectMongoDB();
 
 async function getUsers(name, username, password, group_list) {
   let result;

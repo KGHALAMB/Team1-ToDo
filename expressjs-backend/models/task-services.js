@@ -1,6 +1,7 @@
+const connectMongoDB = require("./mongoose.db.config");
 const taskModel = require("./task");
 
-connectMongooseDB();
+connectMongoDB();
 
 async function getTasks(title, description, category, duration, priority) {
   let result;
