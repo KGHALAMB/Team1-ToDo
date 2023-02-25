@@ -58,3 +58,4 @@ async function findUserByGroupList(group_list) {
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
+
