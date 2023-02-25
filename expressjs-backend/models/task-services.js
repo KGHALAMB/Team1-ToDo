@@ -1,17 +1,6 @@
-const mongoose = require("mongoose");
-const userModel = require("./task");
-const dotenv = require("dotenv");
+const taskModel = require("./task");
 
-dotenv.config();
-
-//mongoose.set("debug", true);
-
-mongoose
-  .connect("mongodb://localhost:27017/tasks", {
-    useNewUrlParser: true, //useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));
+connectMongooseDB();
 
 async function getTasks(title, description, category, duration, priority) {
   let result;

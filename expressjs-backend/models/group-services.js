@@ -1,17 +1,6 @@
-const mongoose = require("mongoose");
-const userModel = require("./group");
-const dotenv = require("dotenv");
+const groupModel = require("./group");
 
-dotenv.config();
-
-//mongoose.set("debug", true);
-
-mongoose
-  .connect("mongodb://localhost:27017/groups", {
-    useNewUrlParser: true, //useFindAndModify: false,
-    useUnifiedTopology: true,
-  })
-  .catch((error) => console.log(error));
+connectMongooseDB();
 
 async function getGroups(name, admin_list, member_list, module_list) {
   let result;
