@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
-function Form(props) {
+function taskForm(props) {
+
   const [Task, setTask] = useState(
      {
         title: "",
@@ -15,6 +16,7 @@ function Form(props) {
 
 
 function handleChange(event) {
+  //handles changes of any one field of a task
     const { name, value } = event.target;
     if (name === "title")
       setTask(
@@ -46,9 +48,9 @@ function handleChange(event) {
     setTask({title: '',description: '',category: '',duration: '',priority: ''});
   }
   
-  
+//return entry form to create a new task
 return (
-    <form>
+    <form>  
       <label htmlFor="title">Title</label>
       <input
         type="text"
@@ -88,11 +90,9 @@ return (
         
     </form>
 );
-
-
 }
 
 
 
 
-export default Form;
+export default taskForm;
