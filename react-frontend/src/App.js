@@ -58,6 +58,35 @@ function MyApp() {
       return false;
     }
   }
+
+  useEffect(() => {
+    fetchAll().then((result) => {
+      if (result) setCharacters(result);
+    });
+  }, []);
+
+  function removeOneCharacter(index) {
+    deleteOne(index).then((result) => {
+      if (result && result.status === 204) {
+        const updated = characters.filter((character, i) => {
+          return i !== index;
+        });
+        setCharacters(updated);
+      } else {
+        console.log("error");
+      }
+    });
+  }
+  function strikeThrough(task) {
+    strike(task.title);
+  }
+  function updateList(person) {
+    makePostCall(person).then((result) => {
+      if (result && result.status === 201) {
+        setCharacters([...characters, result.data]);
+      }
+    });
+  }
   return (
     // This is what we had before:
      <div className="container">
