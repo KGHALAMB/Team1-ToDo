@@ -56,7 +56,7 @@ return (
         _id="title"
         value={Task.title}
         onChange={handleChange} />
-      <label htmlFor="Description">Description</label>
+      <label htmlFor="description">Description</label>
       <input
         type="text"
         name="description"
