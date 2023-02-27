@@ -1,5 +1,7 @@
-const connectMongooseDB = require("./mongoose.db.config");
-const userModel = require("./module");
+const connectMongoDB = require("./mongoose.db.config");
+const moduleModel = require("./module");
+
+connectMongoDB();
 
 async function getModules(name, task_list, user_list) {
   let result;

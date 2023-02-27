@@ -1,5 +1,7 @@
-const connectMongooseDB = require("./mongoose.db.config");
-const userModel = require("./group");
+const connectMongoDB = require("./mongoose.db.config");
+const groupModel = require("./group");
+
+connectMongoDB();
 
 async function getGroups(name, admin_list, member_list, module_list) {
   let result;

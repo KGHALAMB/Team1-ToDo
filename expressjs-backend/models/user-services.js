@@ -1,5 +1,7 @@
-const connectMongooseDB = require("./mongoose.db.config");
+const connectMongoDB = require("./mongoose.db.config");
 const userModel = require("./user");
+
+connectMongoDB();
 
 async function getUsers(name, username, password, group_list) {
   let result;
@@ -56,3 +58,4 @@ async function findUserByGroupList(group_list) {
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
 exports.addUser = addUser;
+

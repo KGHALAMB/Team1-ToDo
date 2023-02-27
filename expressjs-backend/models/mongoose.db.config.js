@@ -5,7 +5,7 @@ dotenv.config();
 
 //mongoose.set("debug", true);
 
-function connectMongooseDB(){
+function connectMongoDB(){
     mongoose
     .connect(
     "mongodb+srv://" +
@@ -25,4 +25,4 @@ function connectMongooseDB(){
     .catch((error) => console.log(error));
 }
 
-  module.exports = connectMongooseDB;
+module.exports = connectMongoDB;
