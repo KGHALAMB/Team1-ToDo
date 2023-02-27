@@ -60,7 +60,9 @@ function MyApp() {
       }
     });
   }
-
+  function strikeThrough(task) {
+    strike(task.title);
+  }
   function updateList(person) {
     makePostCall(person).then((result) => {
       if (result && result.status === 201) {
