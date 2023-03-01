@@ -60,27 +60,27 @@ function MyApp() {
   }
   return (
     // This is what we had before:
-    <div className="container">
+    /**<div className="container">
       <Table characterData={characters} removeCharacter={removeOneCharacter} />
       <Form handleSubmit={updateList} />
-    </div>
+    </div>**/
     // update basename below when deploying to gh-pages
-    /**<div className="container">
+    <div className="container">
       <h1>Choose your path!</h1>
       <BrowserRouter basename="/">
         <nav>
           <ul>
             <li>
-              <Link to="/users-table">List all</Link>
+              <Link to="/tasks-table">List all</Link>
             </li>
             <li>
-              <Link to="/form">Insert one</Link>
+              <Link to="/task-form">Insert one</Link>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route
-            path="/users-table"
+            path="/tasks-table"
             element={
               <Table
                 characterData={characters}
@@ -88,10 +88,13 @@ function MyApp() {
               />
             }
           />
-          <Route path="/form" element={<Form handleSubmit={updateList} />} />
+          <Route
+            path="/task-form"
+            element={<Form handleSubmit={updateList} />}
+          />
         </Routes>
       </BrowserRouter>
-    </div>**/
+    </div>
   );
 }
 export default MyApp;
