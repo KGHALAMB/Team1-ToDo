@@ -3,12 +3,15 @@ const taskModel = require("./task");
 
 connectMongoDB();
 
+
 async function getTasks(title, description, category, duration, priority) {
   let result;
   if (title === undefined && description === undefined
-    && category === undefined && duration == undefined
-    && priority == undefined) {
+    && category === undefined && duration === undefined
+    && priority === undefined) {
     result = await taskModel.find();
+  } else if (title && !description && !category && !duration && !priority) {
+    result = await findTaskByTitle(title);
   } else if (description && !title && !category && !duration && !priority) {
     result = await findTaskByDescription(description);
   } else if (category && !title && !description && !duration && !priority) {
@@ -18,7 +21,7 @@ async function getTasks(title, description, category, duration, priority) {
   } else if (priority && !title && !description && !category && !duration) {
     result = await findTaskByPriority(priority);
   } else {
-    result = await findTaskByTitle(title);
+    result = await findTask(title, description, category, duration, priority);
   }
   return result;
 }
@@ -44,25 +47,40 @@ async function addTask(task) {
 }
 
 async function findTaskByTitle(title) {
-  return await userModel.find({ title: title });
+  return await taskModel.find({ title: title });
 }
 
 async function findTaskByDescription(description) {
-  return await userModel.find({ description: description });
+  return await taskModel.find({ description: description });
 }
 
 async function findTaskByCategory(category) {
-    return await userModel.find({ category: category });
+    return await taskModel.find({ category: category });
 }
 
 async function findTaskByDuration(duration) {
-    return await userModel.find({ duration: duration });
+    return await taskModel.find({ duration: duration });
 }
 
 async function findTaskByPriority(priority) {
-    return await userModel.find({ priority: priority });
+    return await taskModel.find({ priority: priority });
+}
+
+async function findTask(title, description, category, duration, priority) {
+  return await taskModel.find({ title: title, description: description, category: category, duration: duration, priority: priority });
+}
+
+async function deleteTask(id) {
+  return await taskModel.findByIdAndDelete(id);
 }
 
 exports.getTasks = getTasks;
-exports.findTaskById = findTaskById;
 exports.addTask = addTask;
+exports.findTaskById = findTaskById;
+exports.findTaskByTitle = findTaskByTitle;
+exports.findTaskByDescription = findTaskByDescription;
+exports.findTaskByCategory = findTaskByCategory;
+exports.findTaskByDuration = findTaskByDuration;
+exports.findTaskByPriority = findTaskByPriority;
+exports.findTask = findTask;
+exports.deleteTask = deleteTask;

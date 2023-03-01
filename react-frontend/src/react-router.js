@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Table from "./Table";
-import Form from "./taskForm";
+import Form from "./Form";
 import axios from "axios";
 function MyApp() {
   const [characters, setCharacters] = useState([]);
@@ -20,7 +20,7 @@ function MyApp() {
     makePostCall(person).then((result) => {
       if (result && result.status === 201)
         setCharacters([...characters, result.data]);
-      console.log(result);
+      // console.log(result);
     });
   }
   useEffect(() => {

@@ -33,7 +33,7 @@ function MyApp() {
   async function fetchAll() {
     try {
       const response = await axios.get("http://localhost:5000/tasks");
-      return response.data.users_list;
+      return response.data.tasks_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);
@@ -65,7 +65,7 @@ function MyApp() {
        <Form handleSubmit={updateList} />
      </div>
     // update basename below when deploying to gh-pages
-    /*<div className="container">
+    /**<div className="container">
       <h1>Choose your path!</h1>
       <BrowserRouter basename="/">
         <nav>
@@ -91,7 +91,7 @@ function MyApp() {
           <Route path="/form" element={<Form handleSubmit={updateList} />} />
         </Routes>
       </BrowserRouter>
-    </div>*/
+    </div>**/
   );
 }
 export default MyApp;
