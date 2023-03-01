@@ -6,7 +6,7 @@ import axios from "axios";
 function MyApp() {
   const [characters, setCharacters] = useState([]);
   function removeOneCharacter(index) {
-    const person = characters[index].id;
+    const person = characters[index]._id;
     makeDeleteCall(person).then((result) => {
       if (result.status === 204) {
         const updated = characters.filter((character, i) => {
@@ -60,10 +60,10 @@ function MyApp() {
   }
   return (
     // This is what we had before:
-     <div className="container">
-       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-       <Form handleSubmit={updateList} />
-     </div>
+    <div className="container">
+      <Table characterData={characters} removeCharacter={removeOneCharacter} />
+      <Form handleSubmit={updateList} />
+    </div>
     // update basename below when deploying to gh-pages
     /**<div className="container">
       <h1>Choose your path!</h1>

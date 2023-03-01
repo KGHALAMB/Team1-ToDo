@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require('cors');
+const cors = require("cors");
 
 // Add mongdb task services
 const taskServices = require("./models/task-services");
@@ -22,7 +22,13 @@ app.get("/tasks", async (req, res) => {
   const duration = req.query["duration"];
   const priority = req.query["priority"];
 
-  if (title === undefined && description === undefined && category == undefined && duration == undefined && priority == undefined) {
+  if (
+    title === undefined &&
+    description === undefined &&
+    category == undefined &&
+    duration == undefined &&
+    priority == undefined
+  ) {
     try {
       const tasks_from_db = await taskServices.getTasks();
       res.send({ tasks_list: tasks_from_db });
@@ -30,28 +36,64 @@ app.get("/tasks", async (req, res) => {
       console.log("Mongoose error: " + error);
       res.status(500).send("An error ocurred in the server.");
     }
-  } else if (title && description === undefined && category == undefined && duration == undefined && priority == undefined) {
+  } else if (
+    title &&
+    description === undefined &&
+    category == undefined &&
+    duration == undefined &&
+    priority == undefined
+  ) {
     let result = await taskServices.findTaskByTitle(title);
     result = { tasks_list: result };
     res.send(result);
-  } else if (title === undefined && description && category == undefined && duration == undefined && priority == undefined) {
+  } else if (
+    title === undefined &&
+    description &&
+    category == undefined &&
+    duration == undefined &&
+    priority == undefined
+  ) {
     let result = await taskServices.findTaskByDescription(description);
     result = { tasks_list: result };
     res.send(result);
-  } else if (title === undefined && description == undefined && category && duration == undefined && priority == undefined) {
+  } else if (
+    title === undefined &&
+    description == undefined &&
+    category &&
+    duration == undefined &&
+    priority == undefined
+  ) {
     let result = await taskServices.findTaskByCategory(category);
     result = { tasks_list: result };
     res.send(result);
-  } else if (title === undefined && description == undefined && category == undefined && duration && priority == undefined) {
+  } else if (
+    title === undefined &&
+    description == undefined &&
+    category == undefined &&
+    duration &&
+    priority == undefined
+  ) {
     let result = await taskServices.findTaskByDuration(duration);
     result = { tasks_list: result };
     res.send(result);
-  } else if (title === undefined && description == undefined && category == undefined && duration == undefined && priority) {
+  } else if (
+    title === undefined &&
+    description == undefined &&
+    category == undefined &&
+    duration == undefined &&
+    priority
+  ) {
     let result = await taskServices.findTaskByPriority(priority);
     result = { tasks_list: result };
     res.send(result);
   } else {
-    let result = await taskServices.findTask(title, description, category, duration, priority);
+    let result = await taskServices.findTask(
+      title,
+      description,
+      category,
+      duration,
+      priority
+    );
     result = { tasks_list: result };
     res.send(result);
   }
@@ -69,8 +111,8 @@ app.get("/tasks/:id", async (req, res) => {
 });
 
 app.delete("/tasks/:id", async (req, res) => {
-  const id = req.params["_id"];
-  console.log(req.params.id);
+  const id = req.params["id"];
+  // console.log(req.params.id.toString());
   if (deleteTaskById(id)) res.status(204).end();
   else res.status(404).send("Resource not found.");
 });
