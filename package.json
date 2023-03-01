@@ -6,7 +6,7 @@
     "prettier": "^2.8.4"
   },
   "scripts": {
-    "test": "prettier --check . && jest",
+    "test": "prettier --write . && jest",
     "dev": "nodemon backend_with_db.js",
     "start": "node backend_with_db.js"
   },
