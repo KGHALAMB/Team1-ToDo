@@ -6,7 +6,7 @@ import axios from "axios";
 function MyApp() {
   const [characters, setCharacters] = useState([]);
   function removeOneCharacter(index) {
-    const person = characters[index].id;
+    const person = characters[index]._id;
     makeDeleteCall(person).then((result) => {
       if (result.status === 204) {
         const updated = characters.filter((character, i) => {
@@ -33,7 +33,7 @@ function MyApp() {
   async function fetchAll() {
     try {
       const response = await axios.get("http://localhost:5000/tasks");
-      return response.data.users_list;
+      return response.data.tasks_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);
@@ -89,27 +89,27 @@ function MyApp() {
   }
   return (
     // This is what we had before:
-     <div className="container">
-       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-       <Form handleSubmit={updateList} />
-     </div>
+    /**<div className="container">
+      <Table characterData={characters} removeCharacter={removeOneCharacter} />
+      <Form handleSubmit={updateList} />
+    </div>**/
     // update basename below when deploying to gh-pages
-    /*<div className="container">
+    <div className="container">
       <h1>Choose your path!</h1>
       <BrowserRouter basename="/">
         <nav>
           <ul>
             <li>
-              <Link to="/users-table">List all</Link>
+              <Link to="/tasks-table">List all</Link>
             </li>
             <li>
-              <Link to="/form">Insert one</Link>
+              <Link to="/task-form">Insert one</Link>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route
-            path="/users-table"
+            path="/tasks-table"
             element={
               <Table
                 characterData={characters}
@@ -117,10 +117,13 @@ function MyApp() {
               />
             }
           />
-          <Route path="/form" element={<Form handleSubmit={updateList} />} />
+          <Route
+            path="/task-form"
+            element={<Form handleSubmit={updateList} />}
+          />
         </Routes>
       </BrowserRouter>
-    </div>*/
+    </div>
   );
 }
 export default MyApp;

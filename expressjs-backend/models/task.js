@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+
 
 const TaskSchema = new mongoose.Schema({
   title: {
@@ -19,7 +19,7 @@ const TaskSchema = new mongoose.Schema({
   },
   duration: {
     type: String,
-    required: false,
+    required: true,
     trim: true,
     timestamps: true,
   },

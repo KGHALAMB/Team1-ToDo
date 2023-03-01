@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 // Add mongdb task services
 const taskServices = require("./models/task-services");
@@ -7,26 +8,94 @@ const taskServices = require("./models/task-services");
 const app = express();
 const port = 5000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send(tasks_list);
 });
 
 app.get("/tasks", async (req, res) => {
-  //res.send(tasks); //HTTP code 200 is set by default. See an alternative below
-  //res.status(200).send(tasks);
   const title = req.query["title"];
   const description = req.query["description"];
   const category = req.query["category"];
   const duration = req.query["duration"];
   const priority = req.query["priority"];
-  try {
-    const result = await taskServices.getTasks(title, description, category, duration, priority);
-    res.send({ tasks_list: result });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("An error ocurred in the server.");
+
+  if (
+    title === undefined &&
+    description === undefined &&
+    category == undefined &&
+    duration == undefined &&
+    priority == undefined
+  ) {
+    try {
+      const tasks_from_db = await taskServices.getTasks();
+      res.send({ tasks_list: tasks_from_db });
+    } catch (error) {
+      console.log("Mongoose error: " + error);
+      res.status(500).send("An error ocurred in the server.");
+    }
+  } else if (
+    title &&
+    description === undefined &&
+    category == undefined &&
+    duration == undefined &&
+    priority == undefined
+  ) {
+    let result = await taskServices.findTaskByTitle(title);
+    result = { tasks_list: result };
+    res.send(result);
+  } else if (
+    title === undefined &&
+    description &&
+    category == undefined &&
+    duration == undefined &&
+    priority == undefined
+  ) {
+    let result = await taskServices.findTaskByDescription(description);
+    result = { tasks_list: result };
+    res.send(result);
+  } else if (
+    title === undefined &&
+    description == undefined &&
+    category &&
+    duration == undefined &&
+    priority == undefined
+  ) {
+    let result = await taskServices.findTaskByCategory(category);
+    result = { tasks_list: result };
+    res.send(result);
+  } else if (
+    title === undefined &&
+    description == undefined &&
+    category == undefined &&
+    duration &&
+    priority == undefined
+  ) {
+    let result = await taskServices.findTaskByDuration(duration);
+    result = { tasks_list: result };
+    res.send(result);
+  } else if (
+    title === undefined &&
+    description == undefined &&
+    category == undefined &&
+    duration == undefined &&
+    priority
+  ) {
+    let result = await taskServices.findTaskByPriority(priority);
+    result = { tasks_list: result };
+    res.send(result);
+  } else {
+    let result = await taskServices.findTask(
+      title,
+      description,
+      category,
+      duration,
+      priority
+    );
+    result = { tasks_list: result };
+    res.send(result);
   }
 });
 
@@ -43,13 +112,14 @@ app.get("/tasks/:id", async (req, res) => {
 
 app.delete("/tasks/:id", async (req, res) => {
   const id = req.params["id"];
+  // console.log(req.params.id.toString());
   if (deleteTaskById(id)) res.status(204).end();
   else res.status(404).send("Resource not found.");
 });
 
 async function deleteTaskById(id) {
   try {
-    if (await taskServices.findByIdAndDelete(id)) return true;
+    if (await taskServices.deleteTask(id)) return true;
   } catch (error) {
     console.log(error);
     return false;

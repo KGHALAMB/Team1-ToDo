@@ -20,7 +20,7 @@ function MyApp() {
     makePostCall(person).then((result) => {
       if (result && result.status === 201)
         setCharacters([...characters, result.data]);
-      console.log(result);
+      // console.log(result);
     });
   }
   useEffect(() => {
@@ -32,8 +32,8 @@ function MyApp() {
   }, []);
   async function fetchAll() {
     try {
-      const response = await axios.get("http://localhost:5000/users");
-      return response.data.users_list;
+      const response = await axios.get("http://localhost:5000/tasks");
+      return response.data.tasks_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);
@@ -42,7 +42,7 @@ function MyApp() {
   }
   async function makePostCall(person) {
     try {
-      const response = await axios.post("http://localhost:5000/users", person);
+      const response = await axios.post("http://localhost:5000/tasks", person);
       return response;
     } catch (error) {
       console.log(error);
@@ -51,7 +51,7 @@ function MyApp() {
   }
   async function makeDeleteCall(id) {
     try {
-      const response = await axios.delete("http://localhost:5000/users/" + id);
+      const response = await axios.delete("http://localhost:5000/tasks/" + id);
       return response;
     } catch (error) {
       console.log(error);
@@ -60,12 +60,12 @@ function MyApp() {
   }
   return (
     // This is what we had before:
-    // <div className="container">
-    //   <Table characterData={characters} removeCharacter={removeOneCharacter} />
-    //   <Form handleSubmit={updateList} />
-    // </div>
+     <div className="container">
+       <Table characterData={characters} removeCharacter={removeOneCharacter} />
+       <Form handleSubmit={updateList} />
+     </div>
     // update basename below when deploying to gh-pages
-    <div className="container">
+    /**<div className="container">
       <h1>Choose your path!</h1>
       <BrowserRouter basename="/">
         <nav>
@@ -91,7 +91,7 @@ function MyApp() {
           <Route path="/form" element={<Form handleSubmit={updateList} />} />
         </Routes>
       </BrowserRouter>
-    </div>
+    </div>**/
   );
 }
 export default MyApp;
