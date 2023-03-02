@@ -1,27 +1,28 @@
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
-mongoose.set("debug", true);
+mongoose.set('debug', true);
 
-function connectMongoDB(){
-    mongoose
+function connectMongoDB() {
+  mongoose
     .connect(
-    "mongodb+srv://" +
+      'mongodb+srv://' +
         process.env.MONGO_USER +
-        ":" +
+        ':' +
         process.env.MONGO_PWD +
-        "@" +
+        '@' +
         process.env.MONGO_CLUSTER +
-        "/" +
+        '/' +
         process.env.MONGO_DB +
-        "?retryWrites=true&w=majority",
-    // "mongodb://localhost:27017/users",
-    {
+        '?retryWrites=true&w=majority',
+      // "mongodb://localhost:27017/users",
+      {
         useNewUrlParser: true, //useFindAndModify: false,
-        useUnifiedTopology: true,
-    })
+        useUnifiedTopology: true
+      }
+    )
     .catch((error) => console.log(error));
 }
 
