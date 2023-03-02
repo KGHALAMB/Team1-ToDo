@@ -1,21 +1,21 @@
-import React from "react";
+import React from 'react';
 // quick test data structure that simulates what a task would contain
 const data = [
   {
-    title: "307 Lab",
-    description: "do the lab!",
-    category: "School",
-    duration: "1 hour", //may need to change to number?
-    priority: "1", //^
-    status: "not done",
+    title: '307 Lab',
+    description: 'do the lab!',
+    category: 'School',
+    duration: '1 hour', //may need to change to number?
+    priority: '1', //^
+    status: 'not done'
   },
   {
-    title: "Walk The Dog",
-    description: "take the dog for a walk at the park",
-    category: "Home",
-    duration: "30 mins", //may need to change to number?
-    status: "done",
-  },
+    title: 'Walk The Dog',
+    description: 'take the dog for a walk at the park',
+    category: 'Home',
+    duration: '30 mins', //may need to change to number?
+    status: 'done'
+  }
 ];
 // top of the table
 // 4 columns per table (Task, Category, Time, Complete)
