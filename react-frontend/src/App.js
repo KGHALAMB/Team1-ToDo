@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Table from "./Table";
-import Form from "./taskForm";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import Table from './Table';
+import Form from './taskForm';
+import axios from 'axios';
 function MyApp() {
   const [characters, setCharacters] = useState([]);
   function removeOneCharacter(index) {
@@ -32,7 +32,7 @@ function MyApp() {
   }, []);
   async function fetchAll() {
     try {
-      const response = await axios.get("http://localhost:5000/tasks");
+      const response = await axios.get('http://localhost:5000/tasks');
       return response.data.tasks_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
@@ -42,7 +42,7 @@ function MyApp() {
   }
   async function makePostCall(person) {
     try {
-      const response = await axios.post("http://localhost:5000/tasks", person);
+      const response = await axios.post('http://localhost:5000/tasks', person);
       return response;
     } catch (error) {
       console.log(error);
@@ -51,7 +51,7 @@ function MyApp() {
   }
   async function makeDeleteCall(id) {
     try {
-      const response = await axios.delete("http://localhost:5000/tasks/" + id);
+      const response = await axios.delete('http://localhost:5000/tasks/' + id);
       return response;
     } catch (error) {
       console.log(error);
@@ -65,28 +65,6 @@ function MyApp() {
     });
   }, []);
 
-  function removeOneCharacter(index) {
-    deleteOne(index).then((result) => {
-      if (result && result.status === 204) {
-        const updated = characters.filter((character, i) => {
-          return i !== index;
-        });
-        setCharacters(updated);
-      } else {
-        console.log("error");
-      }
-    });
-  }
-  function strikeThrough(task) {
-    strike(task.title);
-  }
-  function updateList(person) {
-    makePostCall(person).then((result) => {
-      if (result && result.status === 201) {
-        setCharacters([...characters, result.data]);
-      }
-    });
-  }
   return (
     // This is what we had before:
     /**<div className="container">
