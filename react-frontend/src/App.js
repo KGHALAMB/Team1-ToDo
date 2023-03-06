@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import ModuleTable from "./moduleTable";
-import ModuleForm from "./moduleForm";
-import ModuleDetail from "./moduleDetail";
-import TaskTable from "./taskTable";
-import TaskForm from "./taskForm";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import ModuleTable from './moduleTable';
+import ModuleForm from './moduleForm';
+import ModuleDetail from './moduleDetail';
+import TaskTable from './taskTable';
+import TaskForm from './taskForm';
+import axios from 'axios';
 function MyApp() {
   /*const [tasks, setTasks] = useState([]);
   function removeOneTask(index) {
@@ -93,7 +93,7 @@ function MyApp() {
 
   async function fetchAllModules() {
     try {
-      const response = await axios.get("http://localhost:5000/modules");
+      const response = await axios.get('http://localhost:5000/modules');
       return response.data.modules_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
@@ -117,7 +117,7 @@ function MyApp() {
   async function makePostCallModule(module) {
     try {
       const response = await axios.post(
-        "http://localhost:5000/modules",
+        'http://localhost:5000/modules',
         module
       );
       return response;
@@ -129,7 +129,7 @@ function MyApp() {
   async function makeDeleteCallModule(id) {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/modules/" + id
+        'http://localhost:5000/modules/' + id
       );
       return response;
     } catch (error) {
@@ -170,7 +170,7 @@ function MyApp() {
       let mod_id = modules[mid]._id;
       console.log(modules);
       const response = await axios.get(
-        "http://localhost:5000/modules/" + mod_id
+        'http://localhost:5000/modules/' + mod_id
       );
       console.log(response);
       return response.data;
@@ -183,7 +183,7 @@ function MyApp() {
   async function makePostCallTask(mid, task) {
     try {
       const response = await axios.post(
-        "http://localhost:5000/modules/" + mid + "/tasks",
+        'http://localhost:5000/modules/' + mid + '/tasks',
         task
       );
       return response;
@@ -195,7 +195,7 @@ function MyApp() {
   async function makeDeleteCallTask(mid, tid) {
     try {
       const response = await axios.delete(
-        "http://localhost:5000/modules/" + mid + "/tasks/" + tid
+        'http://localhost:5000/modules/' + mid + '/tasks/' + tid
       );
       return response;
     } catch (error) {

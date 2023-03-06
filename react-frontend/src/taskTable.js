@@ -2,6 +2,7 @@ import React from 'react';
 // quick test data structure that simulates what a task would contain
 // top of the table
 // 4 columns per table (Task, Category, Time, Complete)
+
 function TableHeader() {
   return (
     <thead>
