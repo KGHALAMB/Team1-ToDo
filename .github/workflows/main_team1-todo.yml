@@ -11,7 +11,7 @@ on:
 
 defaults:
   run:
-    working-directory: react-frontend
+    working-directory: expressjs-backend
 
 jobs:
   build:
