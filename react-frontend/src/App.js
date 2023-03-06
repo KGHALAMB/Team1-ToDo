@@ -1,55 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import Table from "./Table";
-import Form from "./taskForm";
+import ModuleTable from "./moduleTable";
+import ModuleForm from "./moduleForm";
+import ModuleDetail from "./moduleDetail";
+import TaskTable from "./taskTable";
+import TaskForm from "./taskForm";
 import axios from "axios";
 function MyApp() {
-  const [characters, setCharacters] = useState([]);
-  function removeOneCharacter(index) {
-    const person = characters[index].id;
-    makeDeleteCall(person).then((result) => {
+  /*const [tasks, setTasks] = useState([]);
+  function removeOneTask(index) {
+    const task = tasks[index]._id;
+    makeDeleteCallTask(task).then((result) => {
       if (result.status === 204) {
-        const updated = characters.filter((character, i) => {
+        const updated = tasks.filter((task, i) => {
           return i !== index;
         });
-        setCharacters(updated);
+        setTasks(updated);
       }
     });
   }
-  function updateList(person) {
-    makePostCall(person).then((result) => {
-      if (result && result.status === 201)
-        setCharacters([...characters, result.data]);
+  function updateTaskList(task) {
+    makePostCallTask(task).then((result) => {
+      if (result && result.status === 201) setTasks([...tasks, result.data]);
       console.log(result);
     });
   }
   useEffect(() => {
-    fetchAll().then((result) => {
-      if (result) setCharacters(result);
-      console.log(characters);
+    fetchAllTasks().then((result) => {
+      if (result) setTasks(result);
+      console.log(tasks);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  async function fetchAll() {
+
+  async function fetchAllTasks() {
     try {
       const response = await axios.get("http://localhost:5000/tasks");
-      return response.data.users_list;
+      return response.data.tasks_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);
       return false;
     }
   }
-  async function makePostCall(person) {
+  async function makePostCallTask(task) {
     try {
-      const response = await axios.post("http://localhost:5000/tasks", person);
+      const response = await axios.post("http://localhost:5000/tasks", task);
       return response;
     } catch (error) {
       console.log(error);
       return false;
     }
   }
-  async function makeDeleteCall(id) {
+  async function makeDeleteCallTask(id) {
     try {
       const response = await axios.delete("http://localhost:5000/tasks/" + id);
       return response;
@@ -58,69 +61,206 @@ function MyApp() {
       return false;
     }
   }
+  */
 
-  useEffect(() => {
-    fetchAll().then((result) => {
-      if (result) setCharacters(result);
-    });
-  }, []);
-
-  function removeOneCharacter(index) {
-    deleteOne(index).then((result) => {
-      if (result && result.status === 204) {
-        const updated = characters.filter((character, i) => {
+  // modules
+  const [modules, setModules] = useState([]);
+  function removeOneModule(index) {
+    const module = modules[index]._id;
+    makeDeleteCallModule(module).then((result) => {
+      if (result.status === 204) {
+        const updated = modules.filter((module, i) => {
           return i !== index;
         });
-        setCharacters(updated);
-      } else {
-        console.log("error");
+        setModules(updated);
       }
     });
   }
-  function strikeThrough(task) {
-    strike(task.title);
+  function updateModuleList(module) {
+    makePostCallModule(module).then((result) => {
+      if (result && result.status === 201)
+        setModules([...modules, result.data]);
+      console.log(result);
+    });
   }
-  function updateList(person) {
-    makePostCall(person).then((result) => {
-      if (result && result.status === 201) {
-        setCharacters([...characters, result.data]);
+  useEffect(() => {
+    fetchAllModules().then((result) => {
+      if (result) setModules(result);
+      console.log(modules);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function fetchAllModules() {
+    try {
+      const response = await axios.get("http://localhost:5000/modules");
+      return response.data.modules_list;
+    } catch (error) {
+      //We're not handling errors. Just logging into the console.
+      console.log(error);
+      return false;
+    }
+  }
+  /*async function fetchModule(id) {
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/modules/" + id + "/tasks"
+      );
+      console.log(response.data.modules_list.tasks_list);
+      return response.data.modules_list.tasks_list;
+    } catch (error) {
+      //We're not handling errors. Just logging into the console.
+      console.log(error);
+      return false;
+    }
+  }*/
+  async function makePostCallModule(module) {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/modules",
+        module
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  async function makeDeleteCallModule(id) {
+    try {
+      const response = await axios.delete(
+        "http://localhost:5000/modules/" + id
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
+  // module tasks
+  const [tasks, setTasks] = useState([]);
+  function removeOneTask(index) {
+    const task = tasks[index]._id;
+    makeDeleteCallTask(task).then((result) => {
+      if (result.status === 204) {
+        const updated = tasks.filter((task, i) => {
+          return i !== index;
+        });
+        setTasks(updated);
       }
     });
   }
+  function updateTaskList(task) {
+    makePostCallTask(task).then((result) => {
+      if (result && result.status === 201) setTasks([...tasks, result.data]);
+      console.log(result);
+    });
+  }
+  useEffect(() => {
+    fetchAllTasks().then((result) => {
+      if (result) setTasks(result);
+      console.log(tasks);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function fetchAllTasks(mid) {
+    try {
+      let mod_id = modules[mid]._id;
+      console.log(modules);
+      const response = await axios.get(
+        "http://localhost:5000/modules/" + mod_id
+      );
+      console.log(response);
+      return response.data;
+    } catch (error) {
+      //We're not handling errors. Just logging into the console.
+      console.log(error);
+      return false;
+    }
+  }
+  async function makePostCallTask(mid, task) {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/modules/" + mid + "/tasks",
+        task
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+  async function makeDeleteCallTask(mid, tid) {
+    try {
+      const response = await axios.delete(
+        "http://localhost:5000/modules/" + mid + "/tasks/" + tid
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
+  }
+
   return (
     // This is what we had before:
-     <div className="container">
-       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-       <Form handleSubmit={updateList} />
-     </div>
+    /**<div className="container">
+      <Table characterData={characters} removeCharacter={removeOneCharacter} />
+      <Form handleSubmit={updateList} />
+    </div>**/
     // update basename below when deploying to gh-pages
-    /*<div className="container">
+    <div className="container">
       <h1>Choose your path!</h1>
       <BrowserRouter basename="/">
         <nav>
           <ul>
             <li>
-              <Link to="/users-table">List all</Link>
+              <Link to="/modules">List Modules</Link>
             </li>
             <li>
-              <Link to="/form">Insert one</Link>
+              <Link to="/modules/form">Create Module</Link>
+            </li>
+            <li>
+              <Link to="/tasks">List Tasks</Link>
+            </li>
+            <li>
+              <Link to="/tasks/form">Create Task</Link>
             </li>
           </ul>
         </nav>
         <Routes>
           <Route
-            path="/users-table"
+            path="/modules"
             element={
-              <Table
-                characterData={characters}
-                removeCharacter={removeOneCharacter}
+              <ModuleTable
+                moduleData={modules}
+                fetchAllTasks={fetchAllTasks}
+                removeModule={removeOneModule}
               />
             }
           />
-          <Route path="/form" element={<Form handleSubmit={updateList} />} />
+          <Route
+            path="/modules/form"
+            element={<ModuleForm handleSubmit={updateModuleList} />}
+          />
+          <Route
+            path="/modules/:id"
+            element={
+              <TaskTable
+                fetchAllTasks={fetchAllTasks}
+                removeTask={removeOneTask}
+              />
+            }
+          />
+          <Route
+            path="/modules/:id/tasks/form"
+            element={<TaskForm handleSubmit={updateTaskList} />}
+          />
         </Routes>
       </BrowserRouter>
-    </div>*/
+    </div>
   );
 }
 export default MyApp;

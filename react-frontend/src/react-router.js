@@ -20,7 +20,7 @@ function MyApp() {
     makePostCall(person).then((result) => {
       if (result && result.status === 201)
         setCharacters([...characters, result.data]);
-      console.log(result);
+      // console.log(result);
     });
   }
   useEffect(() => {

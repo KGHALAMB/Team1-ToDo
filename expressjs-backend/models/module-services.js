@@ -5,12 +5,11 @@ connectMongoDB();
 
 async function getModules(name, task_list, user_list) {
   let result;
-  if (name === undefined && task_list == undefined
-    && user_list == undefined) {
+  if (name === undefined && task_list == undefined && user_list == undefined) {
     result = await moduleModel.find();
   } else if (task_list && !name && !user_list) {
     result = await findModuleByTaskList(task_list);
-  } else if (member_list && !name && !user_list) {
+  } else if (user_list && !name && !task_list) {
     result = await findModuleByUserList(member_list);
   } else {
     result = await findModuleByName(name);
@@ -39,17 +38,23 @@ async function addModule(module) {
 }
 
 async function findModuleByName(name) {
-    return await moduleModel.find({ name: name });
+  return await moduleModel.find({ name: name });
 }
 
-async function findModuleByTaskList(admin_list) {
-    return await moduleModel.find({ admin_list: admin_list });
+async function findModuleByTaskList(task_list) {
+  return await moduleModel.find({ task_list: task_list });
 }
 
 async function findModuleByUserList(member_list) {
-    return await moduleModel.find({ member_list: member_list });
+  return await moduleModel.find({ member_list: member_list });
+}
+
+async function deleteModule(id) {
+  return await moduleModel.findByIdAndDelete(id);
 }
 
 exports.getModules = getModules;
 exports.findModuleById = findModuleById;
+exports.findModuleByTaskList = findModuleByTaskList;
 exports.addModule = addModule;
+exports.deleteModule = deleteModule;
