@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 const UserSchema = new mongoose.Schema(
@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema(
     name: {
       type: String,
       required: true,
-      trim: true,
+      trim: true
     },
     email: {
       type: String,
@@ -14,7 +14,7 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       lowercase: true,
       unique: true,
-      index: true,
+      index: true
       /*validate(value) {
       if (value.length < 2) throw new Error("Invalid job.");
     },*/
@@ -24,20 +24,20 @@ const UserSchema = new mongoose.Schema(
       required: true,
       trim: true,
       unique: true,
-      index: true,
+      index: true
     },
     password: {
       type: String,
       required: true,
       trim: true,
       unique: true,
-      index: true,
+      index: true
     },
-    module_list: [{ type: Schema.Types.ObjectId, ref: "Module" }],
+    module_list: [{ type: Schema.Types.ObjectId, ref: 'Module' }]
   },
-  { collection: "users_list" }
+  { collection: 'users_list' }
 );
 
-const User = mongoose.model("User", UserSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;

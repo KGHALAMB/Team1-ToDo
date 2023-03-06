@@ -35,7 +35,7 @@ function MyApp() {
 
   async function fetchAllTasks() {
     try {
-      const response = await axios.get("http://localhost:5000/tasks");
+      const response = await axios.get('http://localhost:5000/tasks');
       return response.data.tasks_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
@@ -54,7 +54,7 @@ function MyApp() {
   }
   async function makeDeleteCallTask(id) {
     try {
-      const response = await axios.delete("http://localhost:5000/tasks/" + id);
+      const response = await axios.delete('http://localhost:5000/tasks/' + id);
       return response;
     } catch (error) {
       console.log(error);
