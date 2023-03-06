@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function TableHeader() {
   return (
@@ -15,7 +16,7 @@ function TableBody(props) {
     return (
       <tr key={index}>
         <td>
-          <button onClick={() => props.fetchAllTasks(index)}>{row.name}</button>
+          <Link to={row._id}>{row.name}</Link>
         </td>
         <td>
           <button onClick={() => props.removeModule(index)}>Delete</button>

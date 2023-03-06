@@ -33,7 +33,7 @@ function TableHeader() {
 }
 
 function TableBody(props) {
-  const rows = props.taskData.map((row, index) => {
+  const rows = data.map((row, index) => {
     return (
       <tr key={index}>
         <td>{row.title}</td>

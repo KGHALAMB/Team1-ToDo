@@ -167,11 +167,13 @@ function MyApp() {
 
   async function fetchAllTasks(mid) {
     try {
+      let mod_id = modules[mid]._id;
+      console.log(modules);
       const response = await axios.get(
-        "http://localhost:5000/modules/" + mid + "/tasks"
+        "http://localhost:5000/modules/" + mod_id
       );
       console.log(response);
-      return response.data[mid].task_list;
+      return response.data;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);
@@ -240,16 +242,17 @@ function MyApp() {
             }
           />
           <Route
-            path="/modules/:id"
-            element={<ModuleDetail handleSubmit={updateModuleList} />}
-          />
-          <Route
             path="/modules/form"
             element={<ModuleForm handleSubmit={updateModuleList} />}
           />
           <Route
-            path="/modules/:id/tasks"
-            element={<TaskTable taskData={tasks} removeTask={removeOneTask} />}
+            path="/modules/:id"
+            element={
+              <TaskTable
+                fetchAllTasks={fetchAllTasks}
+                removeTask={removeOneTask}
+              />
+            }
           />
           <Route
             path="/modules/:id/tasks/form"

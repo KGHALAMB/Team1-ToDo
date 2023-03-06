@@ -175,21 +175,11 @@ app.get("/modules", async (req, res) => {
 app.get("/modules/:id", async (req, res) => {
   const id = req.params["id"];
   let result = await moduleServices.findModuleById(id);
+  console.log(req.params);
   if (result === undefined || result === null)
     res.status(404).send("Resource not found.");
   else {
-    result = { modules_list: result };
-    res.send(result);
-  }
-});
-
-app.get("/modules/:id/tasks", async (req, res) => {
-  const id = req.params["id"];
-  let result = await moduleServices.findModuleById(id);
-  if (result === undefined || result === null)
-    res.status(404).send("Resource not found.");
-  else {
-    result = { modules_list: result };
+    //result = { modules_list: result };
     res.send(result.task_list);
   }
 });

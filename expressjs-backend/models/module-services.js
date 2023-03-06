@@ -9,7 +9,7 @@ async function getModules(name, task_list, user_list) {
     result = await moduleModel.find();
   } else if (task_list && !name && !user_list) {
     result = await findModuleByTaskList(task_list);
-  } else if (member_list && !name && !user_list) {
+  } else if (user_list && !name && !task_list) {
     result = await findModuleByUserList(member_list);
   } else {
     result = await findModuleByName(name);
