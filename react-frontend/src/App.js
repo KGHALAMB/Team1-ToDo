@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
 import ModuleTable from './moduleTable';
 import ModuleForm from './moduleForm';
-import ModuleDetail from './moduleDetail';
 import TaskTable from './taskTable';
 import TaskForm from './taskForm';
 import axios from 'axios';
