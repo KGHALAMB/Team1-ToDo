@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.get('/', (req, res) => {
   // eslint-disable-next-line no-undef
-  res.send(tasks_list);
+  res.send('Hello');
 });
 
 app.get('/tasks', async (req, res) => {
