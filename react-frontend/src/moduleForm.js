@@ -1,22 +1,22 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function ModuleForm(props) {
   const [Module, setModule] = useState({
-    name: "",
+    name: ''
   });
 
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "name")
+    if (name === 'name')
       setModule({
-        name: value,
+        name: value
       });
   }
 
   function submitForm() {
     props.handleSubmit(Module);
     setModule({
-      name: "",
+      name: ''
     });
   }
 

@@ -1,66 +1,66 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 function TaskForm(props) {
   const [Task, setTask] = useState({
-    title: "",
-    description: "",
-    category: "",
-    duration: "", //may need to change to number?
-    priority: "", //^
+    title: '',
+    description: '',
+    category: '',
+    duration: '', //may need to change to number?
+    priority: '' //^
   });
 
   function handleChange(event) {
     const { name, value } = event.target;
-    if (name === "title")
+    if (name === 'title')
       setTask({
         title: value,
-        description: Task["description"],
-        category: Task["category"],
-        duration: Task["duration"],
-        priority: Task["priority"],
+        description: Task['description'],
+        category: Task['category'],
+        duration: Task['duration'],
+        priority: Task['priority']
       });
-    else if (name === "description")
+    else if (name === 'description')
       setTask({
-        title: Task["title"],
+        title: Task['title'],
         description: value,
-        category: Task["category"],
-        duration: Task["duration"],
-        priority: Task["priority"],
+        category: Task['category'],
+        duration: Task['duration'],
+        priority: Task['priority']
       });
-    else if (name === "category")
+    else if (name === 'category')
       setTask({
-        title: Task["title"],
-        description: Task["description"],
+        title: Task['title'],
+        description: Task['description'],
         category: value,
-        duration: Task["duration"],
-        priority: Task["priority"],
+        duration: Task['duration'],
+        priority: Task['priority']
       });
-    else if (name === "duration")
+    else if (name === 'duration')
       setTask({
-        title: Task["title"],
-        description: Task["description"],
-        category: Task["category"],
+        title: Task['title'],
+        description: Task['description'],
+        category: Task['category'],
         duration: value,
-        priority: Task["priority"],
+        priority: Task['priority']
       });
-    else if (name === "priority")
+    else if (name === 'priority')
       setTask({
-        title: Task["title"],
-        description: Task["description"],
-        category: Task["category"],
-        duration: Task["duration"],
-        priority: value,
+        title: Task['title'],
+        description: Task['description'],
+        category: Task['category'],
+        duration: Task['duration'],
+        priority: value
       });
   }
 
   function submitForm() {
     props.handleSubmit(Task);
     setTask({
-      title: "",
-      description: "",
-      category: "",
-      duration: "",
-      priority: "",
+      title: '',
+      description: '',
+      category: '',
+      duration: '',
+      priority: ''
     });
   }
 

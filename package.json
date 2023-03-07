@@ -13,7 +13,7 @@
     "stylelint-config-prettier": "^9.0.5"
   },
   "scripts": {
-    "lint": "eslint --fix ./**/*.{js,json}",
+    "lint": "eslint --fix ./**/*.js",
     "test": "prettier --write . && jest",
     "dev": "nodemon backend_with_db.js",
     "start": "node backend_with_db.js",

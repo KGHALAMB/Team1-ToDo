@@ -13,6 +13,7 @@
     "jest": true
   },
   "rules": {
+    "semi": [0, "always"],
     "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
     "no-console": 1, // Means warning
