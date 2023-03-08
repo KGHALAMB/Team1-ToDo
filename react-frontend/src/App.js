@@ -212,21 +212,11 @@ function MyApp() {
     </div>**/
     // update basename below when deploying to gh-pages
     <div className="container">
-      <h1>Choose your path!</h1>
       <BrowserRouter basename="/">
         <nav>
           <ul>
             <li>
               <Link to="/modules">List Modules</Link>
-            </li>
-            <li>
-              <Link to="/modules/form">Create Module</Link>
-            </li>
-            <li>
-              <Link to="/tasks">List Tasks</Link>
-            </li>
-            <li>
-              <Link to="/tasks/form">Create Task</Link>
             </li>
           </ul>
         </nav>
@@ -236,7 +226,7 @@ function MyApp() {
             element={
               <ModuleTable
                 moduleData={modules}
-                fetchAllTasks={fetchAllTasks}
+                fetchAllModules={fetchAllModules}
                 removeModule={removeOneModule}
               />
             }
@@ -249,13 +239,14 @@ function MyApp() {
             path="/modules/:id"
             element={
               <TaskTable
+                taskData={tasks}
                 fetchAllTasks={fetchAllTasks}
                 removeTask={removeOneTask}
               />
             }
           />
           <Route
-            path="/modules/:id/tasks/form"
+            path="/modules/:id/form"
             element={<TaskForm handleSubmit={updateTaskList} />}
           />
         </Routes>

@@ -35,14 +35,17 @@ function TableBody(props) {
 
 function ModuleTable(props) {
   return (
-    <table>
-      <TableHeader />
-      <TableBody
-        moduleData={props.moduleData}
-        fetchAllTasks={props.fetchAllTasks}
-        removeModule={props.removeModule}
-      />
-    </table>
+    <div>
+      <button onClick={() => (location.href = "/modules/form")}>Add +</button>
+      <table>
+        <TableHeader />
+        <TableBody
+          moduleData={props.moduleData}
+          fetchAllModules={props.fetchAllModules}
+          removeModule={props.removeModule}
+        />
+      </table>
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 // quick test data structure that simulates what a task would contain
 const data = [
   {
@@ -17,6 +18,7 @@ const data = [
     status: "done",
   },
 ];
+
 // top of the table
 // 4 columns per table (Task, Category, Time, Complete)
 function TableHeader() {
@@ -33,7 +35,8 @@ function TableHeader() {
 }
 
 function TableBody(props) {
-  const rows = data.map((row, index) => {
+  console.log(props.taskData);
+  const rows = props.taskData.map((row, index) => {
     return (
       <tr key={index}>
         <td>{row.title}</td>
@@ -54,11 +57,20 @@ function TableBody(props) {
 
 //Assembly of the table with header and body
 function TaskTable(props) {
+  const params = useParams();
+  console.log(params.id);
   return (
-    <table>
-      <TableHeader />
-      <TableBody taskData={props.taskData} removeTask={props.removeTask} />
-    </table>
+    <div>
+      <button
+        onClick={() => (location.href = "/modules/" + params.id + "/form")}
+      >
+        Add +
+      </button>
+      <table>
+        <TableHeader />
+        <TableBody taskData={props.taskData} removeTask={props.removeTask} />
+      </table>
+    </div>
   );
 }
 
