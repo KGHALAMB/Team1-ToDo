@@ -1,0 +1,12 @@
+.mods {
+  max-width: 60rem;
+  width: 90%;
+  margin: 6rem auto;
+  animation: meals-appear 1s ease-out forwards;
+}
+
+.mods ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

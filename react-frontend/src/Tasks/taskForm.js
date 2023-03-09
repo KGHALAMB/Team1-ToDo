@@ -54,7 +54,8 @@ function TaskForm(props) {
   }
 
   function submitForm() {
-    props.handleSubmit(Task);
+    console.log(Task);
+    props.onAdd(Task);
     setTask({
       title: '',
       description: '',
@@ -107,6 +108,7 @@ function TaskForm(props) {
         onChange={handleChange}
       />
       <input type="button" value="Submit" onClick={submitForm} />
+      <button onClick={props.onClose}>Close</button>
     </form>
   );
 }
