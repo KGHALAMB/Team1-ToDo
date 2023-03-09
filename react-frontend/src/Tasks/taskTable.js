@@ -47,10 +47,25 @@ function TaskTable(props) {
     }
   }
 
-  const tasksList = props.tasksData.map((task) => (
+  // const tasksList = props.tasksData.map((task) => (
+  //   <TaskItem
+  //     id={task.id}
+  //     key={task.id}
+  //     title={task.title}
+  //     description={task.description}
+  //     categorty={task.categorty}
+  //     duration={task.duration}
+  //     status={task.status}
+  //     fetchAllTasks={task.fetchAllTasks}
+  //     removeOne={removeOneTask}
+  //     setTask={props.setTask}
+  //   />
+  // ));
+
+  const tasksList = data.map((task) => (
     <TaskItem
       id={task.id}
-      key={task.id}
+      key={task.title}
       title={task.title}
       description={task.description}
       categorty={task.categorty}

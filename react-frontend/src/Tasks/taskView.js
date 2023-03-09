@@ -46,7 +46,8 @@ function TaskView(props) {
 
   let content = <p>Found no tasks.</p>;
 
-  if (tasks.length) {
+  // if (tasks.length) {
+  if (true) {
     content = (
       <React.Fragment>
         <TaskTable
