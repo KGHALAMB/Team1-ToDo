@@ -1,11 +1,14 @@
 const express = require('express');
 const cors = require('cors');
 
+// const moduleModel = require('./module');
 // Add mongdb task services
 const taskServices = require('./models/task-services');
 const moduleServices = require('./models/module-services');
 const groupServices = require('./models/group-services');
 const userServices = require('./models/user-services');
+
+// import Module from './models/module';
 
 const app = express();
 const port = 5000;
@@ -179,7 +182,8 @@ app.get('/modules/:id', async (req, res) => {
     res.status(404).send('Resource not found.');
   else {
     //result = { modules_list: result };
-    res.send(result.task_list);
+    console.log();
+    res.send(result);
   }
 });
 
@@ -222,6 +226,38 @@ async function updateModule(id, updatedModule) {
   } catch (error) {
     console.log(error);
     return 500;
+  }
+}
+
+app.post('/modules/:id', async (req, res) => {
+  const id = req.params['id'];
+  const newTask = await taskServices.addTask(req.body);
+  let mod = await moduleServices.findAndUpdate(id, newTask);
+
+  if (mod) res.status(201).send(newTask._id);
+  else res.status(500).end();
+});
+
+app.delete('/modules/:modId/:taskId', async (req, res) => {
+  const modId = req.params['modId'];
+  const taskId = req.params['taskId'];
+
+  deleteTaskByModAndTaskId(modId, taskId);
+  console.log(modId);
+  console.log(taskId);
+  res.status(204).end();
+});
+
+async function deleteTaskByModAndTaskId(modId, taskId) {
+  try {
+    if (
+      (await taskServices.deleteTask(taskId)) &&
+      (await moduleServices.deleteTask(modId, taskId))
+    )
+      return true;
+  } catch (error) {
+    console.log(error);
+    return false;
   }
 }
 

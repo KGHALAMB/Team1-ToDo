@@ -1,5 +1,6 @@
 const connectMongoDB = require('./mongoose.db.config');
 const moduleModel = require('./module');
+const taskModel = require('./task');
 
 connectMongoDB();
 
@@ -19,11 +20,38 @@ async function getModules(name, task_list, user_list) {
 
 async function findModuleById(id) {
   try {
-    return await moduleModel.findById(id);
+    const mod = await moduleModel.findById(id);
+    const query = { name: mod.name };
+
+    const tasksList = await moduleModel.find(query).populate('task_list');
+
+    return tasksList[0].task_list;
   } catch (error) {
     console.log(error);
     return undefined;
   }
+}
+
+async function findAndUpdate(id, task) {
+  let mod = await moduleModel.findById(id);
+  const query = { name: mod.name };
+
+  var updatedMod = await moduleModel.updateOne(query, {
+    $push: { task_list: task._id }
+  });
+
+  mod.save(function (error) {
+    if (!error) {
+      moduleModel
+        .find(query)
+        .populate('task_list')
+        .exec(function (error, tasks) {
+          console.log(JSON.stringify(tasks, null, '\t'));
+        });
+    }
+  });
+
+  return updatedMod;
 }
 
 async function addModule(module) {
@@ -53,8 +81,19 @@ async function deleteModule(id) {
   return await moduleModel.findByIdAndDelete(id);
 }
 
+async function deleteTask(modId, taskId) {
+  let mod = await moduleModel.findById(modId);
+  const query = { name: mod.name };
+
+  return await moduleModel.updateOne(query, {
+    $pull: { task_list: taskId }
+  });
+}
+
 exports.getModules = getModules;
 exports.findModuleById = findModuleById;
 exports.findModuleByTaskList = findModuleByTaskList;
 exports.addModule = addModule;
 exports.deleteModule = deleteModule;
+exports.findAndUpdate = findAndUpdate;
+exports.deleteTask = deleteTask;

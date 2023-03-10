@@ -24,10 +24,9 @@ const TaskSchema = new mongoose.Schema(
       timestamps: true
     },
     priority: {
-      type: Number,
+      type: String,
       required: true,
-      trim: true,
-      unique: true
+      trim: true
     }
   },
   { collection: 'tasks_list' }
