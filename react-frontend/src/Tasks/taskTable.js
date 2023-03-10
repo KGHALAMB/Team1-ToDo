@@ -5,32 +5,14 @@ import TaskItem from './TaskItem';
 
 import classes from './taskTable.module.css';
 
-const data = [
-  {
-    title: '307 Lab',
-    description: 'do the lab!',
-    category: 'School',
-    duration: '1 hour', //may need to change to number?
-    priority: '1', //^
-    status: 'not done'
-  },
-  {
-    title: 'Walk The Dog',
-    description: 'take the dog for a walk at the park',
-    category: 'Home',
-    duration: '30 mins', //may need to change to number?
-    status: 'done'
-  }
-];
-
 function TaskTable(props) {
-  function removeOneTask(mId) {
-    makeDeleteCallModule(mId).then((result) => {
+  function removeOneTask(taskId) {
+    makeDeleteCallModule(taskId).then((result) => {
       if (result.status === 204) {
-        const updated = props.moduleData.filter((module, i) => {
-          return module.id !== mId;
+        const updated = props.tasksData.filter((module, i) => {
+          return module.id !== taskId;
         });
-        props.setMod(updated);
+        props.setTask(updated);
       }
     });
   }
@@ -38,8 +20,9 @@ function TaskTable(props) {
   async function makeDeleteCallModule(id) {
     try {
       const response = await axios.delete(
-        'http://localhost:5000/modules/' + id
+        'http://localhost:5000/modules/' + props.modId + '/' + id
       );
+      console.log(response.status);
       return response;
     } catch (error) {
       console.log(error);
@@ -47,31 +30,15 @@ function TaskTable(props) {
     }
   }
 
-  // const tasksList = props.tasksData.map((task) => (
-  //   <TaskItem
-  //     id={task.id}
-  //     key={task.id}
-  //     title={task.title}
-  //     description={task.description}
-  //     categorty={task.categorty}
-  //     duration={task.duration}
-  //     status={task.status}
-  //     fetchAllTasks={task.fetchAllTasks}
-  //     removeOne={removeOneTask}
-  //     setTask={props.setTask}
-  //   />
-  // ));
-
-  const tasksList = data.map((task) => (
+  const tasksList = props.tasksData.map((task) => (
     <TaskItem
       id={task.id}
-      key={task.title}
+      key={task.id}
       title={task.title}
       description={task.description}
-      categorty={task.categorty}
+      category={task.category}
       duration={task.duration}
-      status={task.status}
-      fetchAllTasks={task.fetchAllTasks}
+      priority={task.priority}
       removeOne={removeOneTask}
       setTask={props.setTask}
     />

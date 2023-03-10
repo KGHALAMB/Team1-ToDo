@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import TaskTable from './taskTable';
-import axios from 'axios';
-import AddTask from './AddTask';
 import Header from '../UI/Header';
+import AddTask from './AddTask';
+import axios from 'axios';
 
 function TaskView(props) {
   const [tasks, setTasks] = useState([]);
@@ -13,19 +13,36 @@ function TaskView(props) {
   const getTasksHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    // console.log(props.modId);
     try {
       const response = await axios.get(
         'http://localhost:5000/modules/' + props.modId
       );
-      console.log(response);
-      setTasks(response.data);
+      if (response.status !== 200) {
+        throw new Error('Something went wrong!');
+      }
+      const data = await response.data;
+      console.log(data);
+      const loadedTasks = [];
+
+      for (const index in data) {
+        loadedTasks.push({
+          id: data[index]._id,
+          title: data[index].title,
+          description: data[index].description,
+          category: data[index].category,
+          duration: data[index].duration,
+          priority: data[index].priority
+        });
+      }
+
+      console.log(loadedTasks);
+
+      setTasks(loadedTasks);
     } catch (error) {
       setError(error.message);
     }
-
     setIsLoading(false);
-  }, []);
+  }, [props.modId]);
 
   useEffect(() => {
     getTasksHandler();
@@ -44,16 +61,16 @@ function TaskView(props) {
     setAddIsShown(false);
   };
 
-  let content = <p>Found no tasks.</p>;
+  let content = <p>No tasks found</p>;
 
-  // if (tasks.length) {
-  if (true) {
+  if (tasks.length > 0) {
     content = (
       <React.Fragment>
         <TaskTable
           back={props.back}
           tasksData={tasks}
-          // removeTask={removeOneTask}
+          modId={props.modId}
+          setTask={setTasks}
         />
       </React.Fragment>
     );
@@ -67,7 +84,7 @@ function TaskView(props) {
     content = <p>Loading...</p>;
   }
 
-  if (tasks)
+  if (true)
     return (
       <React.Fragment>
         {addIsShown && (
@@ -78,7 +95,7 @@ function TaskView(props) {
           />
         )}
         <Header onAdd={showAddHandler} back={props.back} title="Add Task" />
-        <section>{content}</section>
+        {content}
       </React.Fragment>
     );
 }
