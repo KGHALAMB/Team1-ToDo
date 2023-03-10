@@ -5,12 +5,10 @@ const TaskItem = (props) => {
     <li className={classes.task}>
       <div>
         <h3>{props.title}</h3>
-        <div>
-          <h4>{props.description}</h4>
-          <h4>{props.categorty}</h4>
-          <h4>{props.duration}</h4>
-          <h4>{props.priority}</h4>
-        </div>
+        <h4>{props.description}</h4>
+        <h4>{props.categorty}</h4>
+        <h4>{props.duration}</h4>
+        <h4>{props.priority}</h4>
         <button onClick={() => props.removeOne(props.id)}>Delete</button>
         <button>Done</button>
       </div>

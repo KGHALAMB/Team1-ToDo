@@ -31,28 +31,24 @@ function TaskTable(props) {
   }
 
   const tasksList = props.tasksData.map((task) => (
-    <TaskItem
-      id={task.id}
-      key={task.id}
-      title={task.title}
-      description={task.description}
-      category={task.category}
-      duration={task.duration}
-      priority={task.priority}
-      removeOne={removeOneTask}
-      setTask={props.setTask}
-    />
+    <li className={classes.flexItem}>
+      <Card>
+        <TaskItem
+          id={task.id}
+          key={task.id}
+          title={task.title}
+          description={task.description}
+          category={task.category}
+          duration={task.duration}
+          priority={task.priority}
+          removeOne={removeOneTask}
+          setTask={props.setTask}
+        />
+      </Card>
+    </li>
   ));
 
-  return (
-    <React.Fragment>
-      <section className={classes.tasks}>
-        <Card>
-          <ul>{tasksList}</ul>
-        </Card>
-      </section>
-    </React.Fragment>
-  );
+  return <div className={classes.flexContainer}>{tasksList}</div>;
 }
 
 export default TaskTable;
