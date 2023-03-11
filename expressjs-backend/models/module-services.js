@@ -33,6 +33,7 @@ async function findModuleById(id) {
 }
 
 async function findAndUpdate(id, task) {
+  console.log(task);
   let mod = await moduleModel.findById(id);
   const query = { name: mod.name };
 

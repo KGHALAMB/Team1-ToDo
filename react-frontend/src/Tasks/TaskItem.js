@@ -1,33 +1,121 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
+import Card from '../UI/Card';
 import classes from './TaskItem.module.css';
+import SubtaskTable from './Subtasks/SubtaskTable';
+import AddSubtask from './Subtasks/AddSubtask';
+
+import axios from 'axios';
+
+const data = [
+  {
+    id: 'fff',
+    title: 'something',
+    description: 'I dunno',
+    duration: '2 mins',
+    priority: '3'
+  },
+  {
+    id: 'ggg',
+    title: 'Fortnite',
+    description: 'I dunno',
+    duration: '2 mins',
+    priority: '3'
+  }
+];
 
 const TaskItem = (props) => {
-  const priority_color = {
-    1: classes.low,
-    2: classes.lowMedium,
-    3: classes.medium,
-    4: classes.highMedium,
-    5: classes.high
+  // console.log(props.subtasks);
+  const [subtasks, setSubtasks] = useState([]);
+  const [addIsShown, setAddIsShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const getSubtasksHandler = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        'http://localhost:5000/modules/' + props.modId + '/' + props.id
+      );
+      if (response.status !== 200) {
+        throw new Error('Something went wrong!');
+      }
+      const data = await response.data;
+      console.log(data);
+      const loadedSubtasks = [];
+
+      for (const index in data) {
+        loadedSubtasks.push({
+          id: data[index]._id,
+          title: data[index].title,
+          date: data[index].date,
+          priority: data[index].priority,
+          description: data[index].description,
+          steps: data[index].steps
+        });
+      }
+
+      // console.log(loadedTasks);
+
+      setSubtasks(loadedSubtasks);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  }, [props.id]);
+
+  useEffect(() => {
+    getSubtasksHandler();
+  }, [getSubtasksHandler]);
+
+  let content = null;
+
+  if (true) {
+    console.log(subtasks);
+    content = (
+      <React.Fragment>
+        <SubtaskTable
+          subtaskData={subtasks}
+          modId={props.modId}
+          taskId={props.id}
+          setSubtask={setSubtasks}
+        />
+      </React.Fragment>
+    );
+  }
+
+  if (error) {
+    content = <p>{error}</p>;
+  }
+
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  }
+
+  const subtaskAddHandler = (subtask) => {
+    setSubtasks([...subtasks, subtask]);
+    setAddIsShown(false);
   };
 
-  const bg_color = priority_color[props.priority];
+  const hideAddHandler = () => {
+    setAddIsShown(false);
+  };
+
   return (
     <React.Fragment>
-      <div className={classes.topBar}>
-        <div className={classes.duration}>{props.duration}</div>
-        <div className={classes.circle}>
-          <div className={bg_color}>!</div>
-        </div>
-      </div>
-      <div className={classes.task}>
-        <div className={classes.line} />
-        <div>
-          <h3>{props.title}</h3>
-          <h4>{props.description}</h4>
-          <h4>{props.category}</h4>
-          <button onClick={() => props.removeOne(props.id)}>Delete</button>
-        </div>
-      </div>
+      {addIsShown && (
+        <AddSubtask
+          onAdded={subtaskAddHandler}
+          onClose={hideAddHandler}
+          modId={props.modId}
+          taskId={props.id}
+        />
+      )}
+      <h3>{props.title}</h3>
+      {content}
+      {/* <SubtaskTable subtaskData={subtasks} /> */}
+      <button onClick={() => props.removeOne(props.id)}>Delete</button>
+      <button onClick={() => setAddIsShown(true)}>Add Subtask</button>
     </React.Fragment>
   );
 };

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 const TaskSchema = new mongoose.Schema(
   {
@@ -7,29 +8,9 @@ const TaskSchema = new mongoose.Schema(
       required: true,
       trim: true
     },
-    description: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    category: {
-      type: String,
-      required: true,
-      trim: true
-    },
-    duration: {
-      type: String,
-      required: true,
-      trim: true,
-      timestamps: true
-    },
-    priority: {
-      type: Number,
-      required: true,
-      trim: true
-    }
+    subtasks: [{ type: Schema.Types.ObjectId, ref: 'Subtask' }]
   },
-  { collection: 'tasks_list' }
+  { collection: 'tasks' }
 );
 
 const Task = mongoose.model('Task', TaskSchema);

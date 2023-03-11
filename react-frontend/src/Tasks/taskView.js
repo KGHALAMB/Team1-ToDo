@@ -21,21 +21,18 @@ function TaskView(props) {
         throw new Error('Something went wrong!');
       }
       const data = await response.data;
-      console.log(data);
+      // console.log(data[0].subtasks);
       const loadedTasks = [];
 
       for (const index in data) {
         loadedTasks.push({
           id: data[index]._id,
           title: data[index].title,
-          description: data[index].description,
-          category: data[index].category,
-          duration: data[index].duration,
-          priority: data[index].priority
+          subtasks: data[index].subtasks
         });
       }
 
-      console.log(loadedTasks);
+      // console.log(loadedTasks);
 
       setTasks(loadedTasks);
     } catch (error) {

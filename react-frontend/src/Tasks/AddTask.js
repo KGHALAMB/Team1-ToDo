@@ -8,6 +8,7 @@ const AddTask = (props) => {
   // const [error, setError] = useState(null);
 
   const enterTaskHandler = async (taskData) => {
+    console.log(taskData);
     try {
       const response = await axios.post(
         'http://localhost:5000/modules/' + props.modId,
@@ -16,15 +17,12 @@ const AddTask = (props) => {
       if (response.status !== 201) {
         throw new Error('Request failed!');
       }
-      console.log(taskData);
+      console.log(response);
       const createdTask = {
-        id: response.data.id,
-        title: taskData.title,
-        description: taskData.description,
-        category: taskData.category,
-        duration: taskData.duration,
-        priority: taskData.priority
+        id: response.data,
+        title: taskData.title
       };
+      console.log(createdTask);
       props.onAdded(createdTask);
     } catch (err) {
       console.log('error bruh');

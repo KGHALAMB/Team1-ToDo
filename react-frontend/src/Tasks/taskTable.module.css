@@ -1,25 +1,21 @@
 section {
-  margin-top: 6rem;
+  margin-top: 7.5rem;
 }
 
 .flexContainer {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  /* align-content: space-between; */
   margin-left: 10%;
-
   width: 82.66%;
   height: flex;
 }
 
 .flexItem {
   list-style: none;
-  /* min-width: 15rem; */
-  width: 30%;
-  margin-right: 3.33%;
+  min-width: 10rem;
+  width: 31%;
+  margin-right: 2%;
   margin-bottom: 1rem;
-  /* margin-right: auto; */
-  /* margin-left: auto; */
 }
 
