@@ -24,7 +24,7 @@ const TaskSchema = new mongoose.Schema(
       timestamps: true
     },
     priority: {
-      type: String,
+      type: Number,
       required: true,
       trim: true
     }

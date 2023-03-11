@@ -16,7 +16,7 @@ const AddTask = (props) => {
       if (response.status !== 201) {
         throw new Error('Request failed!');
       }
-
+      console.log(taskData);
       const createdTask = {
         id: response.data.id,
         title: taskData.title,

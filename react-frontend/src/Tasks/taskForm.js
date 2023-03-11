@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
+import classes from './taskForm.module.css';
+
 function TaskForm(props) {
   const [Task, setTask] = useState({
     title: '',
     description: '',
     category: '',
     duration: '', //may need to change to number?
-    priority: '' //^
+    priority: '3' //^
   });
 
   function handleChange(event) {
@@ -91,22 +93,33 @@ function TaskForm(props) {
         value={Task.category}
         onChange={handleChange}
       />
-      <label htmlFor="Duration">Duration</label>
+      <label htmlFor="Duration">Date</label>
       <input
-        type="text"
+        type="date"
         name="duration"
         _id="duration"
         value={Task.duration}
         onChange={handleChange}
       />
       <label htmlFor="Priority">Priority</label>
-      <input
-        type="text"
-        name="priority"
-        _id="priority"
-        value={Task.priority}
-        onChange={handleChange}
-      />
+
+      <div className={classes.sliderContainer}>
+        <input
+          type="range"
+          min="1"
+          max="5"
+          className={classes.slider}
+          name="priority"
+          _id="priority"
+          value={Task.priority}
+          onChange={handleChange}
+        />
+      </div>
+      <div className={classes.sliderHeader}>
+        <p>Low</p>
+        <p>Medium</p>
+        <p>High</p>
+      </div>
       <input type="button" value="Submit" onClick={submitForm} />
       <button onClick={props.onClose}>Close</button>
     </form>

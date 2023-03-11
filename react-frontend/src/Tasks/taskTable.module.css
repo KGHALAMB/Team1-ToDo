@@ -5,14 +5,21 @@ section {
 .flexContainer {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  align-items: flex-start;
+  /* align-content: space-between; */
   margin-left: 10%;
-  width: 80%;
+
+  width: 82.66%;
+  height: flex;
 }
 
 .flexItem {
   list-style: none;
-  width: 32%;
-  margin-bottom: 10px;
+  /* min-width: 15rem; */
+  width: 30%;
+  margin-right: 3.33%;
+  margin-bottom: 1rem;
+  /* margin-right: auto; */
+  /* margin-left: auto; */
 }
 
