@@ -18,12 +18,7 @@ async function getModules(name, task_list, user_list) {
 }
 
 async function findModuleById(id) {
-  try {
-    return await moduleModel.findById(id);
-  } catch (error) {
-    console.log(error);
-    return undefined;
-  }
+  return await moduleModel.findById(id);
 }
 
 async function addModule(module) {
