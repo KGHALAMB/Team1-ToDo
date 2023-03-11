@@ -1,12 +1,21 @@
-.tasks {
-  max-width: 60rem;
-  width: 90%;
-  margin: 6rem auto;
-  animation: meals-appear 1s ease-out forwards;
+section {
+  margin-top: 7.5rem;
 }
 
-.tasks ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.flexContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  margin-left: 10%;
+  width: 82.66%;
+  height: flex;
 }
+
+.flexItem {
+  list-style: none;
+  min-width: 10rem;
+  width: 31%;
+  margin-right: 2%;
+  margin-bottom: 1rem;
+}
+

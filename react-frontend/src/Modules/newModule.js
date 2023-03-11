@@ -21,8 +21,6 @@ const NewModule = (props) => {
       if (response.status !== 201) {
         throw new Error('Request failed!');
       }
-      console.log(response.status);
-      console.log(module);
       const createdModule = { id: response.data._id, title: module.name };
       props.onAdded(createdModule);
     } catch (err) {

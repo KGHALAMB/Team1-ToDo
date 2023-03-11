@@ -3,35 +3,28 @@ const taskModel = require('./task');
 
 connectMongoDB();
 
-async function getTasks(title, description, category, duration, priority) {
+async function getTasks(title, category) {
   let result;
-  if (
-    title === undefined &&
-    description === undefined &&
-    category === undefined &&
-    duration === undefined &&
-    priority === undefined
-  ) {
+  if (title === undefined && category === undefined) {
     result = await taskModel.find();
-  } else if (title && !description && !category && !duration && !priority) {
+  } else if (title && !category) {
     result = await findTaskByTitle(title);
-  } else if (description && !title && !category && !duration && !priority) {
-    result = await findTaskByDescription(description);
-  } else if (category && !title && !description && !duration && !priority) {
+  } else if (category && !title) {
     result = await findTaskByCategory(category);
-  } else if (duration && !title && !description && !category && !priority) {
-    result = await findTaskByDuration(duration);
-  } else if (priority && !title && !description && !category && !duration) {
-    result = await findTaskByPriority(priority);
   } else {
-    result = await findTask(title, description, category, duration, priority);
+    result = await findTask(title, category);
   }
   return result;
 }
 
 async function findTaskById(id) {
   try {
-    return await taskModel.findById(id);
+    const task = await taskModel.findById(id);
+    const query = { title: task.title };
+
+    const subtasksList = await taskModel.find(query).populate('subtasks');
+    console.log(subtasksList[0].subtasks);
+    return subtasksList[0].subtasks;
   } catch (error) {
     console.log(error);
     return undefined;
@@ -49,33 +42,40 @@ async function addTask(task) {
   }
 }
 
-async function findTaskByTitle(title) {
-  return await taskModel.find({ title: title });
+async function findAndUpdate(id, subtask) {
+  let task = await taskModel.findById(id);
+  const query = { title: task.title };
+
+  var updatedTask = await taskModel.updateOne(query, {
+    $push: { subtasks: subtask._id }
+  });
+
+  task.save(function (error) {
+    if (!error) {
+      taskModel
+        .find(query)
+        .populate('subtasks')
+        .exec(function (error, subtasks) {
+          console.log(JSON.stringify(subtasks, null, '\t'));
+        });
+    }
+  });
+
+  return updatedTask;
 }
 
-async function findTaskByDescription(description) {
-  return await taskModel.find({ description: description });
+async function findTaskByTitle(title) {
+  return await taskModel.find({ title: title });
 }
 
 async function findTaskByCategory(category) {
   return await taskModel.find({ category: category });
 }
 
-async function findTaskByDuration(duration) {
-  return await taskModel.find({ duration: duration });
-}
-
-async function findTaskByPriority(priority) {
-  return await taskModel.find({ priority: priority });
-}
-
-async function findTask(title, description, category, duration, priority) {
+async function findTask(title, category) {
   return await taskModel.find({
     title: title,
-    description: description,
-    category: category,
-    duration: duration,
-    priority: priority
+    category: category
   });
 }
 
@@ -83,13 +83,21 @@ async function deleteTask(id) {
   return await taskModel.findByIdAndDelete(id);
 }
 
+async function deleteSubtask(taskId, subtaskId) {
+  let task = await taskModel.findById(taskId);
+  const query = { title: task.title };
+
+  return await taskModel.updateOne(query, {
+    $pull: { subtasks: subtaskId }
+  });
+}
+
 exports.getTasks = getTasks;
 exports.addTask = addTask;
 exports.findTaskById = findTaskById;
 exports.findTaskByTitle = findTaskByTitle;
-exports.findTaskByDescription = findTaskByDescription;
 exports.findTaskByCategory = findTaskByCategory;
-exports.findTaskByDuration = findTaskByDuration;
-exports.findTaskByPriority = findTaskByPriority;
 exports.findTask = findTask;
 exports.deleteTask = deleteTask;
+exports.findAndUpdate = findAndUpdate;
+exports.deleteSubtask = deleteSubtask;

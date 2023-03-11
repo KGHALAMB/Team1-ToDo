@@ -5,32 +5,14 @@ import TaskItem from './TaskItem';
 
 import classes from './taskTable.module.css';
 
-const data = [
-  {
-    title: '307 Lab',
-    description: 'do the lab!',
-    category: 'School',
-    duration: '1 hour', //may need to change to number?
-    priority: '1', //^
-    status: 'not done'
-  },
-  {
-    title: 'Walk The Dog',
-    description: 'take the dog for a walk at the park',
-    category: 'Home',
-    duration: '30 mins', //may need to change to number?
-    status: 'done'
-  }
-];
-
 function TaskTable(props) {
-  function removeOneTask(mId) {
-    makeDeleteCallModule(mId).then((result) => {
+  function removeOneTask(taskId) {
+    makeDeleteCallModule(taskId).then((result) => {
       if (result.status === 204) {
-        const updated = props.moduleData.filter((module, i) => {
-          return module.id !== mId;
+        const updated = props.tasksData.filter((module, i) => {
+          return module.id !== taskId;
         });
-        props.setMod(updated);
+        props.setTask(updated);
       }
     });
   }
@@ -38,7 +20,7 @@ function TaskTable(props) {
   async function makeDeleteCallModule(id) {
     try {
       const response = await axios.delete(
-        'http://localhost:5000/modules/' + id
+        'http://localhost:5000/modules/' + props.modId + '/' + id
       );
       return response;
     } catch (error) {
@@ -46,46 +28,21 @@ function TaskTable(props) {
       return false;
     }
   }
-
-  // const tasksList = props.tasksData.map((task) => (
-  //   <TaskItem
-  //     id={task.id}
-  //     key={task.id}
-  //     title={task.title}
-  //     description={task.description}
-  //     categorty={task.categorty}
-  //     duration={task.duration}
-  //     status={task.status}
-  //     fetchAllTasks={task.fetchAllTasks}
-  //     removeOne={removeOneTask}
-  //     setTask={props.setTask}
-  //   />
-  // ));
-
-  const tasksList = data.map((task) => (
-    <TaskItem
-      id={task.id}
-      key={task.title}
-      title={task.title}
-      description={task.description}
-      categorty={task.categorty}
-      duration={task.duration}
-      status={task.status}
-      fetchAllTasks={task.fetchAllTasks}
-      removeOne={removeOneTask}
-      setTask={props.setTask}
-    />
+  const tasksList = props.tasksData.map((task) => (
+    <li className={classes.flexItem} key={task.id}>
+      <Card>
+        <TaskItem
+          id={task.id}
+          title={task.title}
+          removeOne={removeOneTask}
+          setTask={props.setTask}
+          modId={props.modId}
+        />
+      </Card>
+    </li>
   ));
 
-  return (
-    <React.Fragment>
-      <section className={classes.tasks}>
-        <Card>
-          <ul>{tasksList}</ul>
-        </Card>
-      </section>
-    </React.Fragment>
-  );
+  return <div className={classes.flexContainer}>{tasksList}</div>;
 }
 
 export default TaskTable;

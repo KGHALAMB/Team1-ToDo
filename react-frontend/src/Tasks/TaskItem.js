@@ -1,33 +1,97 @@
-import classes from './TaskItem.module.css';
+import React, { useState, useCallback, useEffect } from 'react';
+import SubtaskTable from './Subtasks/SubtaskTable';
+import AddSubtask from './Subtasks/AddSubtask';
+
+import axios from 'axios';
 
 const TaskItem = (props) => {
-  // <tr key={index}>
-  //   <td>{row.title}</td>
-  //   <td>{row.category}</td>
-  //   <td>{row.duration}</td>
-  //   <td>{row.status}</td>
-  //   <td>
-  //     <button /*onClick={() => props.removeTask(index)}*/>Delete</button>
-  //   </td>
-  //   <td>
-  //     <button>Mark As Done</button>
-  //   </td>
-  // </tr>
+  const [subtasks, setSubtasks] = useState([]);
+  const [addIsShown, setAddIsShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const getSubtasksHandler = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      const response = await axios.get(
+        'http://localhost:5000/modules/' + props.modId + '/' + props.id
+      );
+      if (response.status !== 200) {
+        throw new Error('Something went wrong!');
+      }
+      const data = await response.data;
+      const loadedSubtasks = [];
+
+      for (const index in data) {
+        loadedSubtasks.push({
+          id: data[index]._id,
+          title: data[index].title,
+          date: data[index].date,
+          priority: data[index].priority,
+          description: data[index].description,
+          steps: data[index].steps
+        });
+      }
+
+      setSubtasks(loadedSubtasks);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  }, [props.modId, props.id]);
+
+  useEffect(() => {
+    getSubtasksHandler();
+  }, [getSubtasksHandler]);
+
+  let content = null;
+
+  if (subtasks.length) {
+    content = (
+      <React.Fragment>
+        <SubtaskTable
+          subtaskData={subtasks}
+          modId={props.modId}
+          taskId={props.id}
+          setSubtask={setSubtasks}
+        />
+      </React.Fragment>
+    );
+  }
+
+  if (error) {
+    content = <p>{error}</p>;
+  }
+
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  }
+
+  const subtaskAddHandler = (subtask) => {
+    setSubtasks([...subtasks, subtask]);
+    setAddIsShown(false);
+  };
+
+  const hideAddHandler = () => {
+    setAddIsShown(false);
+  };
 
   return (
-    <li className={classes.task}>
-      <div>
-        <h3>{props.title}</h3>
-        <div>
-          <h4>{props.description}</h4>
-          <h4>{props.categorty}</h4>
-          <h4>{props.duration}</h4>
-          <h4>{props.status}</h4>
-        </div>
-        <button onClick={() => props.removeOne(props.id)}>Delete</button>
-        <button>Done</button>
-      </div>
-    </li>
+    <React.Fragment>
+      {addIsShown && (
+        <AddSubtask
+          onAdded={subtaskAddHandler}
+          onClose={hideAddHandler}
+          modId={props.modId}
+          taskId={props.id}
+        />
+      )}
+      <h3>{props.title}</h3>
+      {content}
+      <button onClick={() => props.removeOne(props.id)}>Delete</button>
+      <button onClick={() => setAddIsShown(true)}>Add Subtask</button>
+    </React.Fragment>
   );
 };
 
