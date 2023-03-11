@@ -19,39 +19,34 @@ test("test db query task #1", async () => {
 // afterAll(async () => {
 //   await userServices.disconnectDB();
 // });**/
+
+const moduleServices = require('./module-services.js');
+const moduleModel = require('./module');
 /*
-const taskServices = require('./task-services.js');
-const taskModel = require('./task');
-
-test('finding a task by id', async () => {
-  const task = {
-    title: 'a',
-    description: 'b',
-    category: 'd',
-    duration: 'e',
-    priority: 1
+test('finding a module by id', async () => {
+  const module = {
+    name: 'a',
+    task_list: [],
+    user_list: []
   };
-  let target = new taskModel(task);
+  let target = new moduleModel(module);
   console.log(target['_id']);
-  let result = await taskServices.findTaskById(target['_id']);
+  let result = await taskServices.findModuleById(target['_id']);
   expect(target).toStrictEqual(result);
 });
+*/
 
-test('finding a task by title', async () => {
-  const task = {
-    title: 'a',
-    description: 'b',
-    category: 'd',
-    duration: 'e',
-    priority: 1
+test('finding a module by name', async () => {
+  const module = {
+    name: 'a'
   };
-  let target = new taskModel(task);
-  console.log(target['title']);
-  let result = await taskServices.findTaskByTitle(target['title']);
+  let target = new moduleModel(module);
+  console.log(target.name);
+  let result = await moduleServices.findModuleByName('a');
   console.log(result);
-  expect(target).toStrictEqual(result);
+  expect(result).toStrictEqual(target);
 });
-
+/*
 test('finding a task by title', async () => {
   const task = {
     title: 'a',
@@ -70,5 +65,4 @@ test('finding a task by title', async () => {
   );
   console.log(result);
   expect(target).toStrictEqual(result);
-});
-**/
+});*/
