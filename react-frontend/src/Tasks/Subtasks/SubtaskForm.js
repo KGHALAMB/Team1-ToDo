@@ -56,7 +56,6 @@ function SubtaskForm(props) {
   }
 
   function submitForm() {
-    console.log(Subtask);
     props.onAdd(Subtask);
     setSubtask({
       title: '',

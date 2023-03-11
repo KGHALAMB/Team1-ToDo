@@ -15,7 +15,7 @@ const AddSubtask = (props) => {
         throw new Error('Request failed!');
       }
       const createdSubtask = {
-        id: response.data.id,
+        id: response.data,
         title: subtaskData.title,
         description: subtaskData.description,
         category: subtaskData.category,

@@ -28,13 +28,11 @@ function TaskTable(props) {
       return false;
     }
   }
-
   const tasksList = props.tasksData.map((task) => (
-    <li className={classes.flexItem}>
+    <li className={classes.flexItem} key={task.id}>
       <Card>
         <TaskItem
           id={task.id}
-          key={task.id}
           title={task.title}
           removeOne={removeOneTask}
           setTask={props.setTask}

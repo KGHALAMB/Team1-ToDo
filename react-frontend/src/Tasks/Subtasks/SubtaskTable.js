@@ -27,17 +27,15 @@ function SubtaskTable(props) {
       );
       return response;
     } catch (error) {
-      console.log(error);
       return false;
     }
   }
 
   const subtaskList = props.subtaskData.map((subtask) => (
-    <li>
+    <div key={subtask.id}>
       <Card>
         <SubtaskItem
           id={subtask.id}
-          key={subtask.id}
           title={subtask.title}
           description={subtask.description}
           date={subtask.date}
@@ -46,7 +44,7 @@ function SubtaskTable(props) {
           setTask={props.setTask}
         />
       </Card>
-    </li>
+    </div>
   ));
 
   return <div>{subtaskList}</div>;
