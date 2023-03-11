@@ -11,7 +11,7 @@ async function getModules(name, task_list, user_list) {
   } else if (task_list && !name && !user_list) {
     result = await findModuleByTaskList(task_list);
   } else if (user_list && !name && !task_list) {
-    result = await findModuleByUserList(member_list);
+    result = await findModuleByUserList(user_list);
   } else {
     result = await findModuleByName(name);
   }
@@ -94,6 +94,7 @@ async function deleteTask(modId, taskId) {
 exports.getModules = getModules;
 exports.findModuleById = findModuleById;
 exports.findModuleByTaskList = findModuleByTaskList;
+exports.findModuleByName = findModuleByName;
 exports.addModule = addModule;
 exports.deleteModule = deleteModule;
 exports.findAndUpdate = findAndUpdate;

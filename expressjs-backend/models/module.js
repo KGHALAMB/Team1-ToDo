@@ -11,7 +11,10 @@ const ModuleSchema = new mongoose.Schema(
     task_list: [{ type: Schema.Types.ObjectId, ref: 'Task' }],
     user_list: [{ type: Schema.Types.ObjectId, ref: 'User' }]
   },
-  { collection: 'modules_list' }
+  {
+    collection: 'modules_list'
+    //versionKey: false //here
+  }
 );
 
 const Module = mongoose.model('Module', ModuleSchema);
