@@ -1,68 +1,70 @@
 /* eslint-disable no-undef */
-/**const userServices = require("./models/task-services");
-// const mongoose = require("mongoose");
-// const ObjectId = require("mongoose").Types.ObjectId;
 
-test("test db query task #1", async () => {
-  let result = await userServices.findUserByName("Joe");
-
-  // expected = {
-  //   _id: ObjectId("600f49555f2c7e977e0652c8"),
-  //   job: "Mailman",
-  //   name: "Joe",
-  // };
-
-  expect(result[0].name).toBe("Joe");
-  expect(result[0].job).toBe("Mailman");
-});
-
-// afterAll(async () => {
-//   await userServices.disconnectDB();
-// });**/
-
+const connectMongoDB = require('./mongoose.db.config');
 const moduleServices = require('./module-services.js');
 const moduleModel = require('./module');
-/*
-test('finding a module by id', async () => {
-  const module = {
-    name: 'a',
-    task_list: [],
-    user_list: []
-  };
-  let target = new moduleModel(module);
-  console.log(target['_id']);
-  let result = await taskServices.findModuleById(target['_id']);
-  expect(target).toStrictEqual(result);
-});
-*/
 
+connectMongoDB();
+
+test('adding a module', async () => {
+  const module = {
+    name: 'a'
+  };
+  const moduleToAdd = new moduleModel(module);
+
+  expect(await moduleServices.addModule(moduleToAdd)).not.toBe(false);
+  await moduleServices.deleteModule(moduleToAdd['_id']);
+});
+test('adding a module (on failure)', async () => {
+  const module = {
+    fake: 'a'
+  };
+  const moduleToAdd = new moduleModel(module);
+
+  expect(await moduleServices.addModule(moduleToAdd)).toBe(false);
+});
+test('deleting a module', async () => {
+  const module = {
+    name: 'a'
+  };
+  const moduleToAdd = new moduleModel(module);
+  const savedModule = await moduleToAdd.save();
+  await moduleServices.deleteModule(savedModule['_id']);
+  expect(await moduleModel.findById(savedModule['_id'])).not.toBe(savedModule);
+});
 test('finding a module by name', async () => {
   const module = {
     name: 'a'
   };
   let target = new moduleModel(module);
-  console.log(target.name);
+  await moduleServices.addModule(target);
   let result = await moduleServices.findModuleByName('a');
-  console.log(result);
-  expect(result).toStrictEqual(target);
+  expect(result[0]['_id']).toStrictEqual(target['_id']);
+  console.log(target['_id']);
+  await moduleServices.deleteModule(result[0]['_id']);
 });
-/*
-test('finding a task by title', async () => {
-  const task = {
-    title: 'a',
-    description: 'b',
-    category: 'd',
-    duration: 'e',
-    priority: 1
+test('finding a module by id', async () => {
+  const module = {
+    name: 'a'
   };
-  let target = new taskModel(task);
-  let result = await taskServices.findTask(
-    task['title'],
-    task['description'],
-    task['category'],
-    task['duration'],
-    task['priority']
-  );
+  let target = new moduleModel(module);
+  savedModule = await moduleServices.addModule(target);
+  console.log(savedModule);
+  let result = await moduleServices.findModuleById(savedModule['_id']);
   console.log(result);
-  expect(target).toStrictEqual(result);
-});*/
+  expect(result['_id']).toStrictEqual(savedModule['_id']);
+  await moduleServices.deleteModule(savedModule['_id']);
+  let result2 = await moduleServices.findModuleById(savedModule['_id']);
+  expect(result2).toBe(null);
+});
+test('finding a module by id (on failure)', async () => {
+  const module = {
+    name: 'a'
+  };
+  let target = new moduleModel(module);
+  savedModule = await moduleServices.addModule(target);
+  await moduleServices.deleteModule(savedModule['_id']);
+  let result = await moduleServices.findModuleById(savedModule['_id']);
+  console.log(result);
+  expect(result).toBe(null);
+});
