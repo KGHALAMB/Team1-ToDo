@@ -157,6 +157,12 @@ function MyApp() {
       console.log(result);
     });
   }
+  function updateModuleTaskList(m_id, task) {
+    makePostCallTask(m_id, task).then((result) => {
+      if (result && result.status === 201) setTasks([...tasks, result.data]);
+      console.log(result);
+    });
+  }
   useEffect(() => {
     fetchAllTasks().then((result) => {
       if (result) setTasks(result);
@@ -180,10 +186,12 @@ function MyApp() {
       return false;
     }
   }
-  async function makePostCallTask(mid, task) {
+  async function makePostCallTask(m_id, task) {
     try {
+      console.log("app m_id: " + m_id);
+      console.log("app task: " + task);
       const response = await axios.post(
-        "http://localhost:5000/modules/" + mid + "/tasks",
+        "http://localhost:5000/modules/" + m_id,
         task
       );
       return response;
@@ -247,7 +255,7 @@ function MyApp() {
           />
           <Route
             path="/modules/:id/form"
-            element={<TaskForm handleSubmit={updateTaskList} />}
+            element={<TaskForm handleSubmit={updateModuleTaskList} />}
           />
         </Routes>
       </BrowserRouter>

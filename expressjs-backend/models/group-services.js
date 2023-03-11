@@ -5,8 +5,12 @@ connectMongoDB();
 
 async function getGroups(name, admin_list, member_list, module_list) {
   let result;
-  if (name === undefined && admin_list == undefined
-    && member_list == undefined && module_list == undefined) {
+  if (
+    name === undefined &&
+    admin_list == undefined &&
+    member_list == undefined &&
+    module_list == undefined
+  ) {
     result = await groupModel.find();
   } else if (admin_list && !name && !member_list && !module_list) {
     result = await findGroupByAdminList(admin_list);
@@ -41,21 +45,22 @@ async function addGroup(group) {
 }
 
 async function findGroupByName(name) {
-    return await groupModel.find({ name: name });
+  return await groupModel.find({ name: name });
 }
 
 async function findGroupByAdminList(admin_list) {
-    return await groupModel.find({ admin_list: admin_list });
+  return await groupModel.find({ admin_list: admin_list });
 }
 
 async function findGroupByMemberList(member_list) {
-    return await groupModel.find({ member_list: member_list });
+  return await groupModel.find({ member_list: member_list });
 }
 
 async function findGroupByModuleList(module_list) {
-    return await groupModel.find({ module_list: module_list });
+  return await groupModel.find({ module_list: module_list });
 }
 
 exports.getGroups = getGroups;
 exports.findGroupById = findGroupById;
+exports.findGroupByName = findGroupByName;
 exports.addGroup = addGroup;

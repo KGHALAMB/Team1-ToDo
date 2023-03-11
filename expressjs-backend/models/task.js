@@ -1,35 +1,37 @@
 const mongoose = require("mongoose");
 
-
-const TaskSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
-    trim: true,
+const TaskSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    category: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    duration: {
+      type: String,
+      required: true,
+      trim: true,
+      timestamps: true,
+    },
+    priority: {
+      type: Number,
+      required: true,
+      trim: true,
+      unique: true,
+    },
   },
-  description: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  category: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  duration: {
-    type: String,
-    required: true,
-    trim: true,
-    timestamps: true,
-  },
-  priority: {
-    type: Number,
-    required: true,
-    trim: true,
-    unique: true,
-  },
-}, {collection : 'tasks_list'});
+  { collection: "tasks_list" }
+);
 
 const Task = mongoose.model("Task", TaskSchema);
 

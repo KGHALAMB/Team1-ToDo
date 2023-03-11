@@ -184,6 +184,15 @@ app.get("/modules/:id", async (req, res) => {
   }
 });
 
+app.post("/modules/:id", async (req, res) => {
+  const m_id = req.params["id"];
+  console.log("m_id backend" + m_id);
+  const task = req.body;
+  const savedTask = await moduleServices.addTask(m_id, task);
+  if (savedTask) res.status(201).send(savedTask);
+  else res.status(500).end();
+});
+
 app.delete("/modules/:id", async (req, res) => {
   const id = req.params["id"];
   if (deleteModuleById(id)) res.status(204).end();

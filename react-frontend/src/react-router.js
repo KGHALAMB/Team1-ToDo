@@ -60,10 +60,10 @@ function MyApp() {
   }
   return (
     // This is what we had before:
-     <div className="container">
-       <Table characterData={characters} removeCharacter={removeOneCharacter} />
-       <Form handleSubmit={updateList} />
-     </div>
+    <div className="container">
+      <Table characterData={characters} removeCharacter={removeOneCharacter} />
+      <Form handleSubmit={updateList} />
+    </div>
     // update basename below when deploying to gh-pages
     /**<div className="container">
       <h1>Choose your path!</h1>

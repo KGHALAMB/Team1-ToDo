@@ -1,5 +1,6 @@
 const connectMongoDB = require("./mongoose.db.config");
 const moduleModel = require("./module");
+const taskModel = require("./task");
 
 connectMongoDB();
 
@@ -37,6 +38,20 @@ async function addModule(module) {
   }
 }
 
+async function addTask(m_id, task) {
+  try {
+    console.log("m_id module services" + m_id);
+    const taskToAdd = new taskModel(task);
+    const savedTask = await taskToAdd.save();
+    let curr_module = findModuleById(m_id);
+    curr_module = curr_module.task_list.insert(savedTask);
+    return savedTask;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+
 async function findModuleByName(name) {
   return await moduleModel.find({ name: name });
 }
@@ -57,4 +72,5 @@ exports.getModules = getModules;
 exports.findModuleById = findModuleById;
 exports.findModuleByTaskList = findModuleByTaskList;
 exports.addModule = addModule;
+exports.addTask = addTask;
 exports.deleteModule = deleteModule;

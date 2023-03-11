@@ -22,7 +22,13 @@ app.get("/users", async (req, res) => {
   const password = req.query["password"];
   const group_list = req.query["group_list"];
   try {
-    const result = await userServices.getUsers(name, email, username, password, group_list);
+    const result = await userServices.getUsers(
+      name,
+      email,
+      username,
+      password,
+      group_list
+    );
     res.send({ users_list: result });
   } catch (error) {
     console.log(error);

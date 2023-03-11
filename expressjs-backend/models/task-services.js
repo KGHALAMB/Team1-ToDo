@@ -1,14 +1,18 @@
 const connectMongoDB = require("./mongoose.db.config");
+const moduleModel = require("./module");
 const taskModel = require("./task");
 
 connectMongoDB();
 
-
 async function getTasks(title, description, category, duration, priority) {
   let result;
-  if (title === undefined && description === undefined
-    && category === undefined && duration === undefined
-    && priority === undefined) {
+  if (
+    title === undefined &&
+    description === undefined &&
+    category === undefined &&
+    duration === undefined &&
+    priority === undefined
+  ) {
     result = await taskModel.find();
   } else if (title && !description && !category && !duration && !priority) {
     result = await findTaskByTitle(title);
@@ -55,19 +59,25 @@ async function findTaskByDescription(description) {
 }
 
 async function findTaskByCategory(category) {
-    return await taskModel.find({ category: category });
+  return await taskModel.find({ category: category });
 }
 
 async function findTaskByDuration(duration) {
-    return await taskModel.find({ duration: duration });
+  return await taskModel.find({ duration: duration });
 }
 
 async function findTaskByPriority(priority) {
-    return await taskModel.find({ priority: priority });
+  return await taskModel.find({ priority: priority });
 }
 
 async function findTask(title, description, category, duration, priority) {
-  return await taskModel.find({ title: title, description: description, category: category, duration: duration, priority: priority });
+  return await taskModel.find({
+    title: title,
+    description: description,
+    category: category,
+    duration: duration,
+    priority: priority,
+  });
 }
 
 async function deleteTask(id) {

@@ -21,7 +21,12 @@ app.get("/groups", async (req, res) => {
   const member_list = req.query["member_list"];
   const module_list = req.query["module_list"];
   try {
-    const result = await groupServices.getGroups(name, admin_list, member_list, module_list);
+    const result = await groupServices.getGroups(
+      name,
+      admin_list,
+      member_list,
+      module_list
+    );
     res.send({ groups_list: result });
   } catch (error) {
     console.log(error);

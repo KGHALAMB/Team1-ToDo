@@ -52,10 +52,13 @@ async function findUserByUserNameAndEmail(username, email) {
 }
 
 async function findUserByGroupList(group_list) {
-    return await userModel.find({ group_list: group_list });
+  return await userModel.find({ group_list: group_list });
 }
 
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
+exports.findUserByEmail = findUserByEmail;
+exports.findUserByUserName = findUserByUserName;
 exports.addUser = addUser;
-
+exports.findUserByUserNameAndEmail = findUserByUserNameAndEmail;
+exports.findUserByGroupList = findUserByGroupList;
