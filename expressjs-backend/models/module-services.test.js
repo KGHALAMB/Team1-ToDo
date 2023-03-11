@@ -3,7 +3,7 @@
 const connectMongoDB = require('./mongoose.db.config');
 const moduleServices = require('./module-services.js');
 const moduleModel = require('./module');
-
+const taskModel = require('./task');
 connectMongoDB();
 
 test('adding a module', async () => {
@@ -68,3 +68,4 @@ test('finding a module by id (on failure)', async () => {
   console.log(result);
   expect(result).toBe(null);
 });
+test('finding a module ');
