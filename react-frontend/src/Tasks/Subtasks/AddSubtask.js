@@ -5,8 +5,6 @@ import SubtaskForm from './SubtaskForm';
 import Modal from '../../UI/Modal';
 
 const AddSubtask = (props) => {
-  // const [error, setError] = useState(null);
-
   const enterSubtaskHandler = async (subtaskData) => {
     try {
       const response = await axios.post(
@@ -16,7 +14,6 @@ const AddSubtask = (props) => {
       if (response.status !== 201) {
         throw new Error('Request failed!');
       }
-      console.log(subtaskData);
       const createdSubtask = {
         id: response.data.id,
         title: subtaskData.title,
@@ -25,11 +22,9 @@ const AddSubtask = (props) => {
         date: subtaskData.date,
         priority: subtaskData.priority
       };
-      console.log(createdSubtask);
       props.onAdded(createdSubtask);
     } catch (err) {
-      console.log('error bruh');
-      // setError(err.message || 'Something went wrong!');
+      console.log(err.message || 'Something went wrong!');
     }
   };
 

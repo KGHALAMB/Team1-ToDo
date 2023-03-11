@@ -2,8 +2,6 @@ import React from 'react';
 import classes from './SubtaskItem.module.css';
 
 const SubtaskItem = (props) => {
-  // addS
-
   const priority_color = {
     1: classes.low,
     2: classes.lowMedium,

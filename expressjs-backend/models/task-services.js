@@ -29,12 +29,6 @@ async function findTaskById(id) {
     console.log(error);
     return undefined;
   }
-  // try {
-  //   return await taskModel.findById(id);
-  // } catch (error) {
-  //   console.log(error);
-  //   return undefined;
-  // }
 }
 
 async function addTask(task) {

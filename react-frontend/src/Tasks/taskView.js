@@ -21,7 +21,6 @@ function TaskView(props) {
         throw new Error('Something went wrong!');
       }
       const data = await response.data;
-      // console.log(data[0].subtasks);
       const loadedTasks = [];
 
       for (const index in data) {
@@ -31,8 +30,6 @@ function TaskView(props) {
           subtasks: data[index].subtasks
         });
       }
-
-      // console.log(loadedTasks);
 
       setTasks(loadedTasks);
     } catch (error) {

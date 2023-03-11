@@ -5,8 +5,6 @@ import TaskForm from './taskForm';
 import Modal from '../UI/Modal';
 
 const AddTask = (props) => {
-  // const [error, setError] = useState(null);
-
   const enterTaskHandler = async (taskData) => {
     console.log(taskData);
     try {
@@ -25,8 +23,7 @@ const AddTask = (props) => {
       console.log(createdTask);
       props.onAdded(createdTask);
     } catch (err) {
-      console.log('error bruh');
-      // setError(err.message || 'Something went wrong!');
+      console.log(err.message || 'Something went wrong!');
     }
   };
 

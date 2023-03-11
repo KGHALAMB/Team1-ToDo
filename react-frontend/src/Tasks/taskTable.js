@@ -22,7 +22,6 @@ function TaskTable(props) {
       const response = await axios.delete(
         'http://localhost:5000/modules/' + props.modId + '/' + id
       );
-      // console.log(response.status);
       return response;
     } catch (error) {
       console.log(error);
@@ -30,7 +29,6 @@ function TaskTable(props) {
     }
   }
 
-  // console.log(props.tasksData);
   const tasksList = props.tasksData.map((task) => (
     <li className={classes.flexItem}>
       <Card>
@@ -38,7 +36,6 @@ function TaskTable(props) {
           id={task.id}
           key={task.id}
           title={task.title}
-          // subtasks={task.subtasks}
           removeOne={removeOneTask}
           setTask={props.setTask}
           modId={props.modId}

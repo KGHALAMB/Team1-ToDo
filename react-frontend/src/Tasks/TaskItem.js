@@ -1,30 +1,10 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Card from '../UI/Card';
-import classes from './TaskItem.module.css';
 import SubtaskTable from './Subtasks/SubtaskTable';
 import AddSubtask from './Subtasks/AddSubtask';
 
 import axios from 'axios';
 
-const data = [
-  {
-    id: 'fff',
-    title: 'something',
-    description: 'I dunno',
-    duration: '2 mins',
-    priority: '3'
-  },
-  {
-    id: 'ggg',
-    title: 'Fortnite',
-    description: 'I dunno',
-    duration: '2 mins',
-    priority: '3'
-  }
-];
-
 const TaskItem = (props) => {
-  // console.log(props.subtasks);
   const [subtasks, setSubtasks] = useState([]);
   const [addIsShown, setAddIsShown] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +21,6 @@ const TaskItem = (props) => {
         throw new Error('Something went wrong!');
       }
       const data = await response.data;
-      console.log(data);
       const loadedSubtasks = [];
 
       for (const index in data) {
@@ -55,14 +34,12 @@ const TaskItem = (props) => {
         });
       }
 
-      // console.log(loadedTasks);
-
       setSubtasks(loadedSubtasks);
     } catch (error) {
       setError(error.message);
     }
     setIsLoading(false);
-  }, [props.id]);
+  }, [props.modId, props.id]);
 
   useEffect(() => {
     getSubtasksHandler();
@@ -70,8 +47,7 @@ const TaskItem = (props) => {
 
   let content = null;
 
-  if (true) {
-    console.log(subtasks);
+  if (subtasks.length) {
     content = (
       <React.Fragment>
         <SubtaskTable
@@ -113,7 +89,6 @@ const TaskItem = (props) => {
       )}
       <h3>{props.title}</h3>
       {content}
-      {/* <SubtaskTable subtaskData={subtasks} /> */}
       <button onClick={() => props.removeOne(props.id)}>Delete</button>
       <button onClick={() => setAddIsShown(true)}>Add Subtask</button>
     </React.Fragment>

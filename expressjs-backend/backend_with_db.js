@@ -1,15 +1,11 @@
 const express = require('express');
 const cors = require('cors');
 
-// const moduleModel = require('./module');
-// Add mongdb task services
 const taskServices = require('./models/task-services');
 const subtaskServices = require('./models/subtask-services');
 const moduleServices = require('./models/module-services');
 const groupServices = require('./models/group-services');
 const userServices = require('./models/user-services');
-
-// import Module from './models/module';
 
 const app = express();
 const port = 5000;
@@ -131,12 +127,6 @@ async function deleteTaskById(id) {
     return false;
   }
 }
-// app.post('/tasks', async (req, res) => {
-//   const task = req.body;
-//   const savedTask = await taskServices.addTask(task);
-//   if (savedTask) res.status(201).send(savedTask);
-//   else res.status(500).end();
-// });
 
 app.patch('/tasks/:id', async (req, res) => {
   const id = req.params['id'];
@@ -161,8 +151,6 @@ async function updateTask(id, updatedTask) {
 
 // modules
 app.get('/modules', async (req, res) => {
-  //res.send(modules); //HTTP code 200 is set by default. See an alternative below
-  //res.status(200).send(modules);
   const name = req.query['name'];
   const task_list = req.query['task_list'];
   const user_list = req.query['user_list'];
@@ -178,12 +166,9 @@ app.get('/modules', async (req, res) => {
 app.get('/modules/:id', async (req, res) => {
   const id = req.params['id'];
   let result = await moduleServices.findModuleById(id);
-  console.log(req.params);
   if (result === undefined || result === null)
     res.status(404).send('Resource not found.');
   else {
-    //result = { modules_list: result };
-    console.log();
     res.send(result);
   }
 });
@@ -231,13 +216,11 @@ async function updateModule(id, updatedModule) {
 }
 
 app.post('/modules/:id', async (req, res) => {
-  console.log('yo');
   const id = req.params['id'];
   const newTask = await taskServices.addTask(req.body);
-  console.log(newTask);
   let mod = await moduleServices.findAndUpdate(id, newTask);
 
-  if (newTask) res.status(201).send(newTask._id);
+  if (mod) res.status(201).send(newTask._id);
   else res.status(500).end();
 });
 
@@ -265,7 +248,6 @@ async function deleteTaskByModAndTaskId(modId, taskId) {
 app.get('/modules/:modId/:taskId', async (req, res) => {
   const taskId = req.params['taskId'];
   let result = await taskServices.findTaskById(taskId);
-  console.log(req.params);
   if (result === undefined || result === null)
     res.status(404).send('Resource not found.');
   else {
@@ -304,8 +286,6 @@ async function deleteSubtask(taskId, subtaskId) {
 
 // groups
 app.get('/groups', async (req, res) => {
-  //res.send(groups); //HTTP code 200 is set by default. See an alternative below
-  //res.status(200).send(groups);
   const name = req.query['name'];
   const admin_list = req.query['admin_list'];
   const member_list = req.query['member_list'];
