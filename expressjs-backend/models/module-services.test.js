@@ -41,9 +41,10 @@ test('finding a module by name', async () => {
     name: 'a'
   };
   let target = new moduleModel(module);
-  let result = await moduleServices.findModuleByName(target['name']);
+  console.log(target.name);
+  let result = await moduleServices.findModuleByName('a');
   console.log(result);
-  expect(target).toStrictEqual(result);
+  expect(result).toStrictEqual(target);
 });
 /*
 test('finding a task by title', async () => {
