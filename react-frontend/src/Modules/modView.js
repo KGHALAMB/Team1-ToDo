@@ -45,19 +45,6 @@ function ModView(props) {
     setAddIsShown(false);
   };
 
-  // async function fetchAllTasks(mid) {
-  //   let response;
-  //   try {
-  //     response = await axios.get('http://localhost:5000/modules/' + mid);
-  //   } catch (error) {
-  //     //We're not handling errors. Just logging into the console.
-  //     console.log(error);
-  //     return false;
-  //   }
-  //   console.log(response.data);
-  //   props.taskView(response.data);
-  // }
-
   const returnTaskView = (modId) => {
     props.taskView(modId);
   };
