@@ -8,7 +8,8 @@ function SubtaskForm(props) {
     description: '',
     category: '',
     date: '', //may need to change to number?
-    priority: '3' //^
+    priority: '3', //^
+    steps: []
   });
 
   function handleChange(event) {
@@ -19,7 +20,8 @@ function SubtaskForm(props) {
         description: Subtask['description'],
         category: Subtask['category'],
         date: Subtask['date'],
-        priority: Subtask['priority']
+        priority: Subtask['priority'],
+        steps: Subtask['steps']
       });
     else if (name === 'description')
       setSubtask({
@@ -27,7 +29,8 @@ function SubtaskForm(props) {
         description: value,
         category: Subtask['category'],
         date: Subtask['date'],
-        priority: Subtask['priority']
+        priority: Subtask['priority'],
+        steps: Subtask['steps']
       });
     else if (name === 'category')
       setSubtask({
@@ -35,7 +38,8 @@ function SubtaskForm(props) {
         description: Subtask['description'],
         category: value,
         date: Subtask['date'],
-        priority: Subtask['priority']
+        priority: Subtask['priority'],
+        steps: Subtask['steps']
       });
     else if (name === 'date')
       setSubtask({
@@ -43,7 +47,8 @@ function SubtaskForm(props) {
         description: Subtask['description'],
         category: Subtask['category'],
         date: value,
-        priority: Subtask['priority']
+        priority: Subtask['priority'],
+        steps: Subtask['steps']
       });
     else if (name === 'priority')
       setSubtask({
@@ -51,7 +56,17 @@ function SubtaskForm(props) {
         description: Subtask['description'],
         category: Subtask['category'],
         date: Subtask['date'],
-        priority: value
+        priority: value,
+        steps: Subtask['steps']
+      });
+    else if (name === 'steps')
+      setSubtask({
+        title: Subtask['title'],
+        description: Subtask['description'],
+        category: Subtask['category'],
+        date: Subtask['date'],
+        priority: Subtask['priority'],
+        steps: value
       });
   }
 
@@ -62,7 +77,8 @@ function SubtaskForm(props) {
       description: '',
       category: '',
       date: '',
-      priority: ''
+      priority: '',
+      steps: []
     });
   }
 
@@ -101,7 +117,6 @@ function SubtaskForm(props) {
         onChange={handleChange}
       />
       <label htmlFor="Priority">Priority</label>
-
       <div className={classes.sliderContainer}>
         <input
           type="range"

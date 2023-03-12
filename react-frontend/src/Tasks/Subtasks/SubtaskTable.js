@@ -33,13 +33,14 @@ function SubtaskTable(props) {
 
   const subtaskList = props.subtaskData.map((subtask) => (
     <div key={subtask.id}>
-      <Card>
+      <Card color={'subtaskColor'}>
         <SubtaskItem
           id={subtask.id}
           title={subtask.title}
           description={subtask.description}
           date={subtask.date}
           priority={subtask.priority}
+          steps={subtask.steps}
           removeOne={removeOneSubtask}
           setTask={props.setTask}
         />

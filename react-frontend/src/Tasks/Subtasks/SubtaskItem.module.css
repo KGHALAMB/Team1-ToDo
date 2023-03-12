@@ -1,18 +1,46 @@
-.task {
-  display: flex;
-  /* height: 300px; */
-  /* justify-content: space-between; */
-  /* margin: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #ccc; */
+.card:hover {
+  cursor: pointer;
 }
 
-.task h3 {
+.subtask {
+  margin-left: 0.5rem;
+}
+
+.subtask .title {
+  font-size: x-large;
+  font-weight: 500;
   margin: -0.5rem 0 0.25rem 0;
 }
 
-.task h2 {
-  margin: 0 0 0.25rem 0;
+.subtask .description {
+  font-size: large;
+  margin: 0.5rem 0 .5rem 0;
+}
+
+.subtask .steps {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.subtask .steps .stepAlign {
+  font-size: medium;
+  display: flex;
+  align-items: center;
+  /* font-weight: 550; */
+}
+
+.subtask .steps .bulletPoint {
+  width: .5rem;
+  height: .5rem;
+  /* line-height: 3rem; */
+  margin-right: .75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10rem;
+  color: #fff;
+  background: rgb(29, 29, 30);
 }
 
 .task button {
@@ -84,3 +112,4 @@
   border-radius: 14px;
   background-color: white;
 }
+

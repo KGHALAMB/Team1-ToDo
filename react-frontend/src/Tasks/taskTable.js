@@ -30,7 +30,7 @@ function TaskTable(props) {
   }
   const tasksList = props.tasksData.map((task) => (
     <li className={classes.flexItem} key={task.id}>
-      <Card>
+      <Card color={'taskColor'}>
         <TaskItem
           id={task.id}
           title={task.title}

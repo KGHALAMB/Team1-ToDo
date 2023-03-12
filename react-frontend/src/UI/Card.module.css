@@ -1,9 +1,33 @@
 .card {
   width: flex;
-  padding: 1rem;
+  /* padding: 1rem; */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 14px;
   background-color: white;
   margin-bottom: 1rem;
+}
+
+.card .moduleColor {
+  padding: 0.75rem 1rem 1rem 1rem;
+  border-radius: 14px;
+  margin-top: -1rem;
+  /* align-content: stretch; */
+  /* background: #c9c9c9; */
+}
+
+.card .taskColor {
+  padding: 1rem;
+  border-radius: 14px;
+  margin-top: -1rem;
+  /* align-content: stretch; */
+  background: #c9c9c9;
+}
+
+.card .subtaskColor {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  /* border-radius: 14px; */
+  /* align-content: stretch; */
+  /* background: grey; */
 }
 

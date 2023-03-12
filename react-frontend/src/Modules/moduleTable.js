@@ -46,7 +46,7 @@ function ModuleTable(props) {
   return (
     <React.Fragment>
       <section className={classes.mods}>
-        <Card>
+        <Card color={'moduleColor'}>
           <ul>{modsList}</ul>
         </Card>
       </section>

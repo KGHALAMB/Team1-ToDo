@@ -2,6 +2,8 @@ import React, { useState, useCallback, useEffect } from 'react';
 import SubtaskTable from './Subtasks/SubtaskTable';
 import AddSubtask from './Subtasks/AddSubtask';
 
+import classes from './TaskItem.module.css';
+
 import axios from 'axios';
 
 const TaskItem = (props) => {
@@ -87,10 +89,14 @@ const TaskItem = (props) => {
           taskId={props.id}
         />
       )}
-      <h3>{props.title}</h3>
+      <div className={classes.taskHeader}>
+        <h3 className={classes.taskTitle}>{props.title}</h3>
+        <div className={classes.addSubtask} onClick={() => setAddIsShown(true)}>
+          +
+        </div>
+      </div>
       {content}
       <button onClick={() => props.removeOne(props.id)}>Delete</button>
-      <button onClick={() => setAddIsShown(true)}>Add Subtask</button>
     </React.Fragment>
   );
 };
