@@ -1,6 +1,5 @@
 const connectMongoDB = require('./mongoose.db.config');
 const moduleModel = require('./module');
-const taskModel = require('./task');
 
 connectMongoDB();
 
@@ -10,9 +9,9 @@ async function getModules(name, task_list, user_list) {
     result = await moduleModel.find();
   } else if (task_list && !name && !user_list) {
     result = await findModuleByTaskList(task_list);
-  } else if (user_list && !name && !task_list) {
+  } /* else if (user_list && !name && !task_list) {
     result = await findModuleByUserList(user_list);
-  } else {
+  } */ else {
     result = await findModuleByName(name);
   }
   return result;
@@ -33,7 +32,6 @@ async function findModuleById(id) {
 }
 
 async function findAndUpdate(id, task) {
-  console.log(task);
   let mod = await moduleModel.findById(id);
   const query = { name: mod.name };
 
@@ -41,17 +39,7 @@ async function findAndUpdate(id, task) {
     $push: { task_list: task._id }
   });
 
-  mod.save(function (error) {
-    if (!error) {
-      moduleModel
-        .find(query)
-        .populate('task_list')
-        .exec(function (error, tasks) {
-          console.log(JSON.stringify(tasks, null, '\t'));
-        });
-    }
-  });
-
+  mod.save();
   return updatedMod;
 }
 
@@ -73,10 +61,12 @@ async function findModuleByName(name) {
 async function findModuleByTaskList(task_list) {
   return await moduleModel.find({ task_list: task_list });
 }
-
+//will uncomment once sharing function is implemented
+/*
 async function findModuleByUserList(member_list) {
   return await moduleModel.find({ member_list: member_list });
 }
+*/
 
 async function deleteModule(id) {
   return await moduleModel.findByIdAndDelete(id);

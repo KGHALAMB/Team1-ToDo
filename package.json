@@ -14,7 +14,7 @@
   },
   "scripts": {
     "lint": "eslint --fix ./**/*.js",
-    "test": "prettier --write . && jest",
+    "test": "prettier --write . && ./test.sh",
     "dev": "nodemon backend_with_db.js",
     "start": "node backend_with_db.js",
     "format": "prettier --write \"./**/*.{js,json}\""
