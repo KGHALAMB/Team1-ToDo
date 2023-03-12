@@ -9,6 +9,7 @@ import axios from 'axios';
 const TaskItem = (props) => {
   const [subtasks, setSubtasks] = useState([]);
   const [addIsShown, setAddIsShown] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -79,6 +80,10 @@ const TaskItem = (props) => {
     setAddIsShown(false);
   };
 
+  function showDel() {
+    setShowDelete(!showDelete);
+  }
+
   return (
     <React.Fragment>
       {addIsShown && (
@@ -90,14 +95,16 @@ const TaskItem = (props) => {
         />
       )}
       <div className={classes.taskHeader}>
-        <h3 className={classes.taskTitle}>{props.title}</h3>
+        <h3 className={classes.taskTitle} onClick={() => showDel()}>
+          {props.title}
+        </h3>
         <div className={classes.buttons}>
-          <div
+          {/* <div
             className={classes.removeTask}
             onClick={() => props.removeOne(props.id)}
           >
             x
-          </div>
+          </div> */}
           <div
             className={classes.addSubtask}
             onClick={() => setAddIsShown(true)}
@@ -107,6 +114,14 @@ const TaskItem = (props) => {
         </div>
       </div>
       {content}
+      {showDelete && (
+        <div
+          className={classes.removeTask}
+          onClick={() => props.removeOne(props.id)}
+        >
+          Delete
+        </div>
+      )}
     </React.Fragment>
   );
 };

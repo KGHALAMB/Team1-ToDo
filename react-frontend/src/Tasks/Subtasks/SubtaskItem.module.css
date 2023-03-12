@@ -72,7 +72,7 @@
 
 .circle .lowMedium {
   border-radius: 50%;
-  background: yellow;
+  background: green;
 }
 
 .circle .medium {
@@ -87,7 +87,7 @@
 
 .circle .high{
   border-radius: 50%;
-  background: purple;
+  background: red;
 }
 
 .topBar {

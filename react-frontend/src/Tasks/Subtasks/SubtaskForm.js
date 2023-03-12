@@ -8,7 +8,7 @@ function SubtaskForm(props) {
     description: '',
     category: '',
     date: '', //may need to change to number?
-    priority: '3', //^
+    priority: '2', //^
     steps: []
   });
 
@@ -77,7 +77,7 @@ function SubtaskForm(props) {
       description: '',
       category: '',
       date: '',
-      priority: '',
+      priority: '2',
       steps: []
     });
   }
@@ -121,7 +121,7 @@ function SubtaskForm(props) {
         <input
           type="range"
           min="1"
-          max="5"
+          max="3"
           className={classes.slider}
           name="priority"
           _id="priority"
