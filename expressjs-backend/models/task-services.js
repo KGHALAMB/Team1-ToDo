@@ -3,16 +3,18 @@ const taskModel = require('./task');
 
 connectMongoDB();
 
-async function getTasks(title, category) {
+async function getTasks(title /*, category*/) {
   let result;
-  if (title === undefined && category === undefined) {
+  if (title === undefined /* && category === undefined*/) {
     result = await taskModel.find();
-  } else if (title && !category) {
+  } /*else if (title && !category) {
     result = await findTaskByTitle(title);
   } else if (category && !title) {
     result = await findTaskByCategory(category);
   } else {
     result = await findTask(title, category);
+  }*/ else {
+    result = await findTaskByTitle(title);
   }
   return result;
 }
@@ -23,10 +25,9 @@ async function findTaskById(id) {
     const query = { title: task.title };
 
     const subtasksList = await taskModel.find(query).populate('subtasks');
-    console.log(subtasksList[0].subtasks);
     return subtasksList[0].subtasks;
   } catch (error) {
-    console.log(error);
+    console.log('hello', error);
     return undefined;
   }
 }
@@ -50,7 +51,7 @@ async function findAndUpdate(id, subtask) {
     $push: { subtasks: subtask._id }
   });
 
-  task.save(function (error) {
+  task.save(/*function (error) {
     if (!error) {
       taskModel
         .find(query)
@@ -59,7 +60,7 @@ async function findAndUpdate(id, subtask) {
           console.log(JSON.stringify(subtasks, null, '\t'));
         });
     }
-  });
+  }*/);
 
   return updatedTask;
 }
@@ -67,7 +68,8 @@ async function findAndUpdate(id, subtask) {
 async function findTaskByTitle(title) {
   return await taskModel.find({ title: title });
 }
-
+//tasks don't have categories
+/*
 async function findTaskByCategory(category) {
   return await taskModel.find({ category: category });
 }
@@ -77,7 +79,7 @@ async function findTask(title, category) {
     title: title,
     category: category
   });
-}
+}*/
 
 async function deleteTask(id) {
   return await taskModel.findByIdAndDelete(id);
@@ -96,8 +98,8 @@ exports.getTasks = getTasks;
 exports.addTask = addTask;
 exports.findTaskById = findTaskById;
 exports.findTaskByTitle = findTaskByTitle;
-exports.findTaskByCategory = findTaskByCategory;
-exports.findTask = findTask;
+//exports.findTaskByCategory = findTaskByCategory;
+//exports.findTask = findTask;
 exports.deleteTask = deleteTask;
 exports.findAndUpdate = findAndUpdate;
 exports.deleteSubtask = deleteSubtask;
