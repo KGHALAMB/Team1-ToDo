@@ -22,7 +22,7 @@ button {
 }
 
 .task .line {
-  width:fit-content;
+  width: fit-content;
   border-bottom: 1px solid #ccc;
 }
 
@@ -58,7 +58,7 @@ button {
   background: red;
 }
 
-.circle .high{
+.circle .high {
   border-radius: 50%;
   background: purple;
 }
@@ -73,7 +73,7 @@ button {
   margin-bottom: 1rem;
 }
 
-.topBar .duration  {
+.topBar .duration {
   width: flex;
   height: 2rem;
   font-weight: bold;

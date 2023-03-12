@@ -1,6 +1,5 @@
 const connectMongoDB = require('./mongoose.db.config');
 const moduleModel = require('./module');
-const taskModel = require('./task');
 
 connectMongoDB();
 
