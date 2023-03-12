@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const signin = () => {
+const SignInPage = () => {
     const[username, setUsername] = useState(''); 
-    const[password, setPassword] = useState(''); //need setUsername and setpassword
+    const[password, setPassword] = useState(''); 
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -15,6 +15,7 @@ const signin = () => {
   const handleSubmit = (e) => {
     // TODO: 
     //how do we acutally sign in?
+
   }
 
   return (
@@ -25,7 +26,7 @@ const signin = () => {
         <input type="username" id="username" value={username} onChange={handleUsernameChange} />
         <label htmlFor="password">Password:</label>
         <input type="password" id="password" value={password} onChange={handlePasswordChange} />
-        <button type="submit">Sign In</button>
+        <button type="submit">Log In</button>
       </form>
     </div>
   );
