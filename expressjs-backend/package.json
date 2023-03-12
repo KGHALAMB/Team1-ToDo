@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "user_backend.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "dev": "nodemon backend_with_db.js",
     "start": "node backend_with_db.js"
   },
