@@ -91,12 +91,22 @@ const TaskItem = (props) => {
       )}
       <div className={classes.taskHeader}>
         <h3 className={classes.taskTitle}>{props.title}</h3>
-        <div className={classes.addSubtask} onClick={() => setAddIsShown(true)}>
-          +
+        <div className={classes.buttons}>
+          <div
+            className={classes.removeTask}
+            onClick={() => props.removeOne(props.id)}
+          >
+            x
+          </div>
+          <div
+            className={classes.addSubtask}
+            onClick={() => setAddIsShown(true)}
+          >
+            +
+          </div>
         </div>
       </div>
       {content}
-      <button onClick={() => props.removeOne(props.id)}>Delete</button>
     </React.Fragment>
   );
 };

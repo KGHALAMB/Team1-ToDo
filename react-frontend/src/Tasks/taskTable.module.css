@@ -4,19 +4,20 @@ section {
 
 .flexContainer {
   display: flex;
-  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: flex-start;
   margin-left: 10%;
-  width: 82.66%;
+  width: 80%;
   height: flex;
   
 }
 
-.flexItem {
+.flexColumn {
   list-style: none;
-  min-width: 10rem;
-  width: 31%;
-  margin-right: 2%;
-  margin-bottom: 1rem;
+  width: 32.3%;
+}
+
+.flexItem {
+  margin-bottom: 2rem;
 }
 
