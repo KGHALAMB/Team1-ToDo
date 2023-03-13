@@ -1,7 +1,7 @@
  
 import React from 'react';
 import axios from 'axios';
-import SignUpForm from '../SignUpForm';
+import SignUpForm from './SignUpForm';
 import Modal from '../UI/Modal';
 
 const AddUser = (props) => {
@@ -15,7 +15,6 @@ const AddUser = (props) => {
         if (response.status !== 201) {
           throw new Error('Request failed!');
         }
-        console.log(response);
         const createdUser = {
           id: response.data,
           username: userData.username,
@@ -23,7 +22,6 @@ const AddUser = (props) => {
           password: userData.password,
           email: userData.email
         };
-        console.log(createdUser);
         props.onAdded(createdUser);
       } catch (err) {
         console.log(err.message || 'Something went wrong!');

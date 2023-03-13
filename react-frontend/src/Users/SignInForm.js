@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SignInForm = () => {
+const SignInForm = (props) => {
     cconst[user,setUser] = useState({
       username: '',   
       password:'',
@@ -9,27 +9,23 @@ const SignInForm = () => {
     function handleChange(e){
       const { name, value } = e.target;
       if (name === 'username'){
-        setTask({
+        setUser({
           username: value,
-          name: '',
           password:'',
-          email:'',
+        
         });}
       
       else if(name === 'password'){
-        setTask({
+        setUser({
           username: '',
-          name: '',
           password: value,
-          email:'',
         });
       }
   
     }
 
   const handleSubmit = (e) => {
-    // TODO: 
-    //how do we acutally sign in?
+    props.onAdd(user)
 
   }
 
@@ -47,4 +43,4 @@ const SignInForm = () => {
   );
 }
 
-export default SignInPage;
+export default SignInForm;

@@ -11,14 +11,14 @@ const SignUpForm = (props) => {
   function handleChange(e){
     const { name, value } = e.target;
     if (name === 'username'){
-      setTask({
+      setUser({
         username: value,
         name: '',
         password:'',
         email:'',
       });}
     else if(name === 'name'){
-      setTask({
+      setUser({
         username: '',
         name: value,
         password:'',
@@ -26,7 +26,7 @@ const SignUpForm = (props) => {
       });
     }
     else if(name === 'password'){
-      setTask({
+      setUser({
         username: '',
         name: '',
         password: value,
@@ -34,7 +34,7 @@ const SignUpForm = (props) => {
       });
     }
       else if(name === 'email'){
-        setTask({
+        setUser({
           username: '',
           name: '',
           password: '',
