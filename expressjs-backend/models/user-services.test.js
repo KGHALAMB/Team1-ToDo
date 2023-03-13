@@ -3,7 +3,6 @@ const connectMongoDB = require('./mongoose.db.config');
 const mongoose = require('mongoose');
 const userServices = require('./user-services.js');
 const userModel = require('./user');
-const moduleServices = require('./module-services.js');
 const moduleModel = require('./module');
 connectMongoDB();
 
@@ -106,7 +105,7 @@ test('finding a user by id and deleting a module', async () => {
     savedModule['_id']
   );
   expect(
-    (await userServices.findUserByName('a'))[0]['module_list']
+    (await userServices.findUserByName('Fran'))[0]['module_list']
   ).toStrictEqual([]);
   await userServices.deleteUser(savedUser['_id']);
 });
@@ -128,7 +127,7 @@ test('finding a user by email', async () => {
   const user = {
     name: 'Bob',
     email: 'bob123@gmail.com',
-    username: 'Bob123',
+    username: 'Bob123'
   };
   let target = new userModel(user);
   await userServices.addUser(target);
@@ -141,7 +140,7 @@ test('finding a user by username', async () => {
   const user = {
     name: 'Bob',
     email: 'bob123@gmail.com',
-    username: 'Bob123',
+    username: 'Bob123'
   };
   let target = new userModel(user);
   await userServices.addUser(target);
@@ -154,7 +153,7 @@ test('finding a user by module list', async () => {
   const user = {
     name: 'Bob',
     email: 'bob123@gmail.com',
-    username: 'Bob123',
+    username: 'Bob123'
   };
   const module = {
     name: 'School'
