@@ -107,6 +107,7 @@ test('finding a subtask by priority', async () => {
   expect(result[0]['_id']).toStrictEqual(savedSubtask['_id']);
   await subtaskServices.deleteSubtask(savedSubtask['_id']);
 });
+/*
 test('finding a subtask by priority', async () => {
   subtask = new subtaskModel({
     title: 'a',
@@ -122,7 +123,7 @@ test('finding a subtask by priority', async () => {
   );
   expect(result[0]['_id']).toStrictEqual(savedSubtask['_id']);
   await subtaskServices.deleteSubtask(savedSubtask['_id']);
-});
+});*/
 /*
 test('finding a task by id and updating the subtask list', async () => {
   const task = {
