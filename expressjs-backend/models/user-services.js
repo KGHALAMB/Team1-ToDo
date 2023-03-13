@@ -3,25 +3,34 @@ const userModel = require('./user');
 
 connectMongoDB();
 
-async function getUsers(name, username, password, group_list) {
+async function getUsers(name, username, email, module_list) {
   let result;
-  if (name === undefined && username === undefined && password === undefined) {
+  if (
+    name === undefined &&
+    username === undefined &&
+    module_list === undefined
+  ) {
     result = await userModel.find();
-  } else if (username && !name && !email && !password) {
+  } else if (username && !name && !email && !module_list) {
     result = await findUserByUserName(username);
-  } else if (email && !username && !name && !password) {
+  } else if (email && !username && !name && !module_list) {
     result = await findUserByEmail(email);
-  } else if (group_list && !email && !username && !name && !password) {
-    result = await findUserByGroupList(group_list);
+  } else if (module_list && !username && !name && !email) {
+    result = await findUserByModuleList(module_list);
   } else {
-    result = await findUserByUserNameAndEmail(username, email);
+    result = await findUserByName(name);
   }
   return result;
 }
 
 async function findUserById(id) {
   try {
-    return await userModel.findById(id);
+    const u = await userModel.findById(id);
+    const query = { name: u.name };
+
+    const modulesList = await userModel.find(query).populate('module_list');
+
+    return modulesList[0].module_list;
   } catch (error) {
     console.log(error);
     return undefined;
@@ -39,6 +48,24 @@ async function addUser(user) {
   }
 }
 
+async function findAndUpdate(id, module) {
+  let new_user = await userModel.findById(id);
+  const query = { name: new_user.name,
+                  email: new_user.email,
+                  username: new_user.username};
+
+  var updatedUser = await userModel.updateOne(query, {
+    $push: { module_list: module._id }
+  });
+
+  new_user.save();
+  return updatedUser;
+}
+
+async function findUserByName(name) {
+  return await userModel.find({ name: name });
+}
+
 async function findUserByUserName(username) {
   return await userModel.find({ username: username });
 }
@@ -47,14 +74,30 @@ async function findUserByEmail(email) {
   return await userModel.find({ email: email });
 }
 
-async function findUserByUserNameAndEmail(username, email) {
-  return await userModel.find({ username: username, email: email });
+async function findUserByModuleList(module_list) {
+  return await userModel.find({ module_list: module_list });
 }
 
-async function findUserByGroupList(group_list) {
-  return await userModel.find({ group_list: group_list });
+async function deleteUser(id) {
+  return await userModel.findByIdAndDelete(id);
+}
+
+async function deleteModule(userId, modId) {
+  let user = await userModel.findById(userId);
+  const query = { name: user.name };
+
+  return await userModel.updateOne(query, {
+    $pull: { module_list: modId }
+  });
 }
 
 exports.getUsers = getUsers;
 exports.findUserById = findUserById;
+exports.findUserByName = findUserByName;
+exports.findUserByEmail = findUserByEmail;
+exports.findUserByUserName = findUserByUserName;
+exports.findUserByModuleList = findUserByModuleList;
 exports.addUser = addUser;
+exports.findAndUpdate = findAndUpdate;
+exports.deleteUser = deleteUser;
+exports.deleteModule = deleteModule;
