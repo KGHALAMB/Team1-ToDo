@@ -1,5 +1,5 @@
-const connectMongoDB = require("./mongoose.db.config");
-const userModel = require("./user");
+const connectMongoDB = require('./mongoose.db.config');
+const userModel = require('./user');
 
 connectMongoDB();
 
@@ -60,5 +60,3 @@ exports.findUserById = findUserById;
 exports.findUserByEmail = findUserByEmail;
 exports.findUserByUserName = findUserByUserName;
 exports.addUser = addUser;
-exports.findUserByUserNameAndEmail = findUserByUserNameAndEmail;
-exports.findUserByGroupList = findUserByGroupList;

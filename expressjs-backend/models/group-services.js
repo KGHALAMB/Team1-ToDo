@@ -1,5 +1,5 @@
-const connectMongoDB = require("./mongoose.db.config");
-const groupModel = require("./group");
+const connectMongoDB = require('./mongoose.db.config');
+const groupModel = require('./group');
 
 connectMongoDB();
 
@@ -62,5 +62,4 @@ async function findGroupByModuleList(module_list) {
 
 exports.getGroups = getGroups;
 exports.findGroupById = findGroupById;
-exports.findGroupByName = findGroupByName;
 exports.addGroup = addGroup;

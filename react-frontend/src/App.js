@@ -1,265 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
-import ModuleTable from "./moduleTable";
-import ModuleForm from "./moduleForm";
-import ModuleDetail from "./moduleDetail";
-import TaskTable from "./taskTable";
-import TaskForm from "./taskForm";
-import axios from "axios";
+import React, { useState } from 'react';
+import ModView from './Modules/modView';
+import TaskView from './Tasks/taskView';
+
 function MyApp() {
-  /*const [tasks, setTasks] = useState([]);
-  function removeOneTask(index) {
-    const task = tasks[index]._id;
-    makeDeleteCallTask(task).then((result) => {
-      if (result.status === 204) {
-        const updated = tasks.filter((task, i) => {
-          return i !== index;
-        });
-        setTasks(updated);
-      }
-    });
-  }
-  function updateTaskList(task) {
-    makePostCallTask(task).then((result) => {
-      if (result && result.status === 201) setTasks([...tasks, result.data]);
-      console.log(result);
-    });
-  }
-  useEffect(() => {
-    fetchAllTasks().then((result) => {
-      if (result) setTasks(result);
-      console.log(tasks);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [moduleId, setModId] = useState([]);
+  const [isModView, setIsModView] = useState(true);
+  const [isTaskView, setIsTaskView] = useState(false);
 
-  async function fetchAllTasks() {
-    try {
-      const response = await axios.get("http://localhost:5000/tasks");
-      return response.data.tasks_list;
-    } catch (error) {
-      //We're not handling errors. Just logging into the console.
-      console.log(error);
-      return false;
-    }
-  }
-  async function makePostCallTask(task) {
-    try {
-      const response = await axios.post("http://localhost:5000/tasks", task);
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-  async function makeDeleteCallTask(id) {
-    try {
-      const response = await axios.delete("http://localhost:5000/tasks/" + id);
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-  */
-
-  // modules
-  const [modules, setModules] = useState([]);
-  function removeOneModule(index) {
-    const module = modules[index]._id;
-    makeDeleteCallModule(module).then((result) => {
-      if (result.status === 204) {
-        const updated = modules.filter((module, i) => {
-          return i !== index;
-        });
-        setModules(updated);
-      }
-    });
-  }
-  function updateModuleList(module) {
-    makePostCallModule(module).then((result) => {
-      if (result && result.status === 201)
-        setModules([...modules, result.data]);
-      console.log(result);
-    });
-  }
-  useEffect(() => {
-    fetchAllModules().then((result) => {
-      if (result) setModules(result);
-      console.log(modules);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function fetchAllModules() {
-    try {
-      const response = await axios.get("http://localhost:5000/modules");
-      return response.data.modules_list;
-    } catch (error) {
-      //We're not handling errors. Just logging into the console.
-      console.log(error);
-      return false;
-    }
-  }
-  /*async function fetchModule(id) {
-    try {
-      const response = await axios.get(
-        "http://localhost:5000/modules/" + id + "/tasks"
-      );
-      console.log(response.data.modules_list.tasks_list);
-      return response.data.modules_list.tasks_list;
-    } catch (error) {
-      //We're not handling errors. Just logging into the console.
-      console.log(error);
-      return false;
-    }
-  }*/
-  async function makePostCallModule(module) {
-    try {
-      const response = await axios.post(
-        "http://localhost:5000/modules",
-        module
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-  async function makeDeleteCallModule(id) {
-    try {
-      const response = await axios.delete(
-        "http://localhost:5000/modules/" + id
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+  function handleTaskView(modId) {
+    setIsModView(false);
+    setIsTaskView(true);
+    setModId(modId);
   }
 
-  // module tasks
-  const [tasks, setTasks] = useState([]);
-  function removeOneTask(index) {
-    const task = tasks[index]._id;
-    makeDeleteCallTask(task).then((result) => {
-      if (result.status === 204) {
-        const updated = tasks.filter((task, i) => {
-          return i !== index;
-        });
-        setTasks(updated);
-      }
-    });
+  function backFromTaskList() {
+    setIsModView(true);
+    setIsTaskView(false);
   }
-  function updateTaskList(task) {
-    makePostCallTask(task).then((result) => {
-      if (result && result.status === 201) setTasks([...tasks, result.data]);
-      console.log(result);
-    });
-  }
-  function updateModuleTaskList(m_id, task) {
-    makePostCallTask(m_id, task).then((result) => {
-      if (result && result.status === 201) setTasks([...tasks, result.data]);
-      console.log(result);
-    });
-  }
-  useEffect(() => {
-    fetchAllTasks().then((result) => {
-      if (result) setTasks(result);
-      console.log(tasks);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
-  async function fetchAllTasks(mid) {
-    try {
-      let mod_id = modules[mid]._id;
-      console.log(modules);
-      const response = await axios.get(
-        "http://localhost:5000/modules/" + mod_id
-      );
-      console.log(response);
-      return response.data;
-    } catch (error) {
-      //We're not handling errors. Just logging into the console.
-      console.log(error);
-      return false;
-    }
-  }
-  async function makePostCallTask(m_id, task) {
-    try {
-      console.log("app m_id: " + m_id);
-      console.log("app task: " + task);
-      const response = await axios.post(
-        "http://localhost:5000/modules/" + m_id,
-        task
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
-  }
-  async function makeDeleteCallTask(mid, tid) {
-    try {
-      const response = await axios.delete(
-        "http://localhost:5000/modules/" + mid + "/tasks/" + tid
-      );
-      return response;
-    } catch (error) {
-      console.log(error);
-      return false;
-    }
+  let content;
+
+  if (isModView) {
+    content = <ModView taskView={handleTaskView} />;
+  } else if (isTaskView) {
+    content = <TaskView modId={moduleId} back={backFromTaskList} />;
   }
 
   return (
-    // This is what we had before:
-    /**<div className="container">
-      <Table characterData={characters} removeCharacter={removeOneCharacter} />
-      <Form handleSubmit={updateList} />
-    </div>**/
-    // update basename below when deploying to gh-pages
-    <div className="container">
-      <BrowserRouter basename="/">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/modules">List Modules</Link>
-            </li>
-          </ul>
-        </nav>
-        <Routes>
-          <Route
-            path="/modules"
-            element={
-              <ModuleTable
-                moduleData={modules}
-                fetchAllModules={fetchAllModules}
-                removeModule={removeOneModule}
-              />
-            }
-          />
-          <Route
-            path="/modules/form"
-            element={<ModuleForm handleSubmit={updateModuleList} />}
-          />
-          <Route
-            path="/modules/:id"
-            element={
-              <TaskTable
-                taskData={tasks}
-                fetchAllTasks={fetchAllTasks}
-                removeTask={removeOneTask}
-              />
-            }
-          />
-          <Route
-            path="/modules/:id/form"
-            element={<TaskForm handleSubmit={updateModuleTaskList} />}
-          />
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <React.Fragment>
+      <section>{content}</section>
+    </React.Fragment>
   );
 }
 export default MyApp;

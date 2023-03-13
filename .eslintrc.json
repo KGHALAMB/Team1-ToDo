@@ -1,0 +1,28 @@
+{
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "rules": {
+        "additional-typescript-only-rule": "warn"
+      }
+    }
+  ],
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "rules": {
+    "semi": [0, "always"],
+    "react/prop-types": 0,
+    "react/react-in-jsx-scope": "off",
+    "no-console": 1, // Means warning
+    "prettier/prettier": 1 // Means error
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ]
+}
