@@ -58,4 +58,4 @@ jobs:
           app-name: 'Team1-ToDo2'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_56B0E0C99E744BCF9DEBC50F81B94EB8 }}
-          package: .
+          package: ${{AZURE_WEBAPP_PACKAGE_PATH}}
