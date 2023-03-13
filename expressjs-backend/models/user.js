@@ -28,10 +28,10 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: true,
+      /*required: true,
       trim: true,
       unique: true,
-      index: true
+      index: true*/
     },
     module_list: [{ type: Schema.Types.ObjectId, ref: 'Module' }]
   },
