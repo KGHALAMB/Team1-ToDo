@@ -14,7 +14,7 @@ function ModView(props) {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await axios.get('http://localhost:5000/modules');
+      const response = await axios.get('https://team1-todo2.azurewebsites.net/modules');
       if (response.status !== 200) {
         throw new Error('Something went wrong!');
       }

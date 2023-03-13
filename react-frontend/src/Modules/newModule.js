@@ -15,7 +15,7 @@ const NewModule = (props) => {
 
     try {
       const response = await axios.post(
-        'http://localhost:5000/modules',
+        'https://team1-todo2.azurewebsites.net/modules',
         module
       );
       if (response.status !== 201) {
