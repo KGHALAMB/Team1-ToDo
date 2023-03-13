@@ -1,7 +1,7 @@
  
 import React from 'react';
 import axios from 'axios';
-import SignUpPage from '../SignUpPage';
+import SignUpForm from '../SignUpForm';
 import Modal from '../UI/Modal';
 
 const AddUser = (props) => {
@@ -32,7 +32,7 @@ const AddUser = (props) => {
   
     return (
       <Modal onClose={props.onClose}>
-        <SignUpPage
+        <SignUpForm
           onClose={props.onClose}
           onAdd={enterUserHandler}
         />

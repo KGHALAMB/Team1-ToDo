@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SignUpPage = (props) => {
+const SignUpForm = (props) => {
     const[user,setUser] = useState({
       username: '',
       name: '',
@@ -10,7 +10,7 @@ const SignUpPage = (props) => {
     
   function handleChange(e){
     const { name, value } = e.target;
-    if (username === 'username'){
+    if (name === 'username'){
       setTask({
         username: value,
         name: '',
@@ -25,7 +25,7 @@ const SignUpPage = (props) => {
         email:'',name
       });
     }
-    else if(password === 'password'){
+    else if(name === 'password'){
       setTask({
         username: '',
         name: '',
@@ -33,7 +33,7 @@ const SignUpPage = (props) => {
         email:'',
       });
     }
-      else if(email === 'email'){
+      else if(name === 'email'){
         setTask({
           username: '',
           name: '',
@@ -65,4 +65,4 @@ const SignUpPage = (props) => {
   );
 }
 
-export default SignUpPage;
+export default SignUpForm;
