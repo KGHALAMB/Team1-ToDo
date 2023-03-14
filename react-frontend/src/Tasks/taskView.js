@@ -15,7 +15,7 @@ function TaskView(props) {
     setError(null);
     try {
       const response = await axios.get(
-        'http://localhost:5000/modules/' + props.modId
+        'https://team1-todo2.azurewebsites.net/modules/' + props.modId
       );
       if (response.status !== 200) {
         throw new Error('Something went wrong!');
