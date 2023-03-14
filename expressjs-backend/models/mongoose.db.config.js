@@ -5,8 +5,8 @@ dotenv.config();
 
 mongoose.set('debug', true);
 
-function connectMongoDB() {
-  mongoose
+async function connectMongoDB() {
+  await mongoose
     .connect(
       'mongodb+srv://' +
         process.env.MONGO_USER +
