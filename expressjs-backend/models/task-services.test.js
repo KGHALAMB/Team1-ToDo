@@ -72,9 +72,9 @@ test('finding a task by id (on failure)', async () => {
 });
 
 test('finding a task by id and updating the subtask list', async () => {
-  const task = {
+  const task = new taskModel({
     title: 'a'
-  };
+  });
   const subtask = new subtaskModel({
     title: 'a',
     description: 'b',
@@ -82,8 +82,7 @@ test('finding a task by id and updating the subtask list', async () => {
     priority: 1
   });
 
-  let savedTask = new taskModel(task);
-  savedTask = await taskServices.addTask(savedTask);
+  savedTask = await taskServices.addTask(task);
   await taskServices.findAndUpdate(savedTask['_id'], subtask);
   expect(
     (await taskServices.findTaskByTitle('a'))[0]['subtasks'][0]

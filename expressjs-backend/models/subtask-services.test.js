@@ -107,8 +107,8 @@ test('finding a subtask by priority', async () => {
   expect(result[0]['_id']).toStrictEqual(savedSubtask['_id']);
   await subtaskServices.deleteSubtask(savedSubtask['_id']);
 });
-/*
-test('finding a subtask by priority', async () => {
+
+test('finding a subtask', async () => {
   subtask = new subtaskModel({
     title: 'a',
     description: 'b',
@@ -119,64 +119,68 @@ test('finding a subtask by priority', async () => {
   let result = await subtaskServices.findSubtask(
     savedSubtask['title'],
     savedSubtask['description'],
-    savedSubtask['']
+    savedSubtask['date'],
+    savedSubtask['priority']
   );
+  console.log(result);
   expect(result[0]['_id']).toStrictEqual(savedSubtask['_id']);
   await subtaskServices.deleteSubtask(savedSubtask['_id']);
-});*/
-/*
-test('finding a task by id and updating the subtask list', async () => {
-  const task = {
-    title: 'a'
-  };
-  const subtask = new subtaskModel({
-    title: 'a',
-    description: 'b',
-    date: 'c',
-    priority: 1
-  });
-
-  let savedSubtask = new taskModel(task);
-  savedSubtask = await subtaskServices.addSubtask(savedSubtask);
-  await subtaskServices.findAndUpdate(savedSubtask['_id'], subtask);
-  expect(
-    (await subtaskServices.findTaskByTitle('a'))[0]['subtasks'][0]
-  ).toStrictEqual(subtask['_id']);
-  await subtaskServices.deleteSubtask(savedSubtask['_id']);
 });
-
-test('finding a task by id and deleting a subtask', async () => {
+test('getting a list of subtasks', async () => {
   subtask = new subtaskModel({
     title: 'a',
     description: 'b',
     date: 'c',
-    priority: 1
+    priority: -1
   });
-  const task = new taskModel({
-    title: 'a',
-    subtasks: [subtask['_id']]
-  });
-  await subtaskServices.addSubtask(task);
-  taskList = await subtaskServices.deleteSubtask(task['_id'], task['subtasks'][0]);
+  savedSubtask = await subtaskServices.addSubtask(subtask);
   expect(
-    (await subtaskServices.findTaskByTitle('a'))[0]['subtasks']
-  ).toStrictEqual([]);
-  await subtaskServices.deleteSubtask(task['_id']);
-});
-test('getting a list of tasks', async () => {
-  const task = {
-    title: 'a'
-  };
-  let savedSubtask = new taskModel(task);
-  expect(await subtaskServices.getTasks(undefined)).toStrictEqual(
-    await taskModel.find()
+    await subtaskServices.getSubtasks(
+      undefined,
+      undefined,
+      undefined,
+      undefined
+    )
+  ).toStrictEqual(await subtaskModel.find());
+  savedSubtask = await subtaskServices.addSubtask(savedSubtask);
+  let result1 = await subtaskServices.getSubtasks(
+    savedSubtask['title'],
+    undefined,
+    undefined,
+    undefined
   );
-  savedTask2 = await subtaskServices.addSubtask(savedSubtask);
-  let result1 = await subtaskSer vices.getTasks('a');
-  expect(result1[0]['_id']).toStrictEqual(savedTask2['_id']);
+  expect(result1[0]['_id']).toStrictEqual(savedSubtask['_id']);
+  let result2 = await subtaskServices.getSubtasks(
+    undefined,
+    savedSubtask['description'],
+    undefined,
+    undefined
+  );
+  expect(result2[0]['_id']).toStrictEqual(savedSubtask['_id']);
+  let result3 = await subtaskServices.getSubtasks(
+    undefined,
+    undefined,
+    savedSubtask['date'],
+    undefined
+  );
+  expect(result3[0]['_id']).toStrictEqual(savedSubtask['_id']);
+  let result4 = await subtaskServices.getSubtasks(
+    undefined,
+    undefined,
+    undefined,
+    savedSubtask['priority']
+  );
+  expect(result4[0]['_id']).toStrictEqual(savedSubtask['_id']);
+  let result5 = await subtaskServices.getSubtasks(
+    savedSubtask['title'],
+    savedSubtask['description'],
+    savedSubtask['date'],
+    savedSubtask['priority']
+  );
+  expect(result5[0]['_id']).toStrictEqual(savedSubtask['_id']);
   await subtaskServices.deleteSubtask(savedSubtask['_id']);
 });
-*/
+
 afterAll(() => {
   mongoose.connection.close();
 });
