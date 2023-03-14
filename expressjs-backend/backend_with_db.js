@@ -4,7 +4,6 @@ const cors = require('cors');
 const taskServices = require('./models/task-services');
 const subtaskServices = require('./models/subtask-services');
 const moduleServices = require('./models/module-services');
-const groupServices = require('./models/group-services');
 const userServices = require('./models/user-services');
 
 const app = express();
@@ -283,7 +282,7 @@ async function deleteSubtask(taskId, subtaskId) {
     return false;
   }
 }
-
+/*
 // groups
 app.get('/groups', async (req, res) => {
   const name = req.query['name'];
@@ -355,7 +354,7 @@ async function updateGroup(id, updatedGroup) {
     console.log(error);
     return 500;
   }
-}
+}*/
 
 // users
 app.get('/users', async (req, res) => {
