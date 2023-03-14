@@ -36,7 +36,9 @@ function TableBody(props) {
 function ModuleTable(props) {
   return (
     <div>
-      <button onClick={() => (location.href = '/modules/form')}>Add +</button>
+      <button /*onClick={() => (location.href = '/modules/form')}*/>
+        Add +
+      </button>
       <table>
         <TableHeader />
         <TableBody

@@ -62,7 +62,7 @@ function TaskTable(props) {
   return (
     <div>
       <button
-        onClick={() => (location.href = '/modules/' + params.id + '/form')}
+      /*onClick={() => (location.href = '/modules/' + params.id + '/form')}*/
       >
         Add +
       </button>

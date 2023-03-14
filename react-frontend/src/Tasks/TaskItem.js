@@ -2,11 +2,14 @@ import React, { useState, useCallback, useEffect } from 'react';
 import SubtaskTable from './Subtasks/SubtaskTable';
 import AddSubtask from './Subtasks/AddSubtask';
 
+import classes from './TaskItem.module.css';
+
 import axios from 'axios';
 
 const TaskItem = (props) => {
   const [subtasks, setSubtasks] = useState([]);
   const [addIsShown, setAddIsShown] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -77,6 +80,10 @@ const TaskItem = (props) => {
     setAddIsShown(false);
   };
 
+  function showDel() {
+    setShowDelete(!showDelete);
+  }
+
   return (
     <React.Fragment>
       {addIsShown && (
@@ -87,10 +94,34 @@ const TaskItem = (props) => {
           taskId={props.id}
         />
       )}
-      <h3>{props.title}</h3>
+      <div className={classes.taskHeader}>
+        <h3 className={classes.taskTitle} onClick={() => showDel()}>
+          {props.title}
+        </h3>
+        <div className={classes.buttons}>
+          {/* <div
+            className={classes.removeTask}
+            onClick={() => props.removeOne(props.id)}
+          >
+            x
+          </div> */}
+          <div
+            className={classes.addSubtask}
+            onClick={() => setAddIsShown(true)}
+          >
+            +
+          </div>
+        </div>
+      </div>
       {content}
-      <button onClick={() => props.removeOne(props.id)}>Delete</button>
-      <button onClick={() => setAddIsShown(true)}>Add Subtask</button>
+      {showDelete && (
+        <div
+          className={classes.removeTask}
+          onClick={() => props.removeOne(props.id)}
+        >
+          Delete
+        </div>
+      )}
     </React.Fragment>
   );
 };

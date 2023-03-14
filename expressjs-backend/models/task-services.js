@@ -22,7 +22,7 @@ async function getTasks(title /*, category*/) {
 async function findTaskById(id) {
   try {
     const task = await taskModel.findById(id);
-    const query = { title: task.title };
+    const query = { _id: task._id };
 
     const subtasksList = await taskModel.find(query).populate('subtasks');
     return subtasksList[0].subtasks;
@@ -45,7 +45,7 @@ async function addTask(task) {
 
 async function findAndUpdate(id, subtask) {
   let task = await taskModel.findById(id);
-  const query = { title: task.title };
+  const query = { _id: task._id };
 
   var updatedTask = await taskModel.updateOne(query, {
     $push: { subtasks: subtask._id }
@@ -87,7 +87,7 @@ async function deleteTask(id) {
 
 async function deleteSubtask(taskId, subtaskId) {
   let task = await taskModel.findById(taskId);
-  const query = { title: task.title };
+  const query = { _id: task._id };
 
   return await taskModel.updateOne(query, {
     $pull: { subtasks: subtaskId }

@@ -20,7 +20,8 @@ const AddSubtask = (props) => {
         description: subtaskData.description,
         category: subtaskData.category,
         date: subtaskData.date,
-        priority: subtaskData.priority
+        priority: subtaskData.priority,
+        steps: subtaskData.steps
       };
       props.onAdded(createdSubtask);
     } catch (err) {

@@ -20,7 +20,7 @@ async function getModules(name, task_list, user_list) {
 async function findModuleById(id) {
   try {
     const mod = await moduleModel.findById(id);
-    const query = { name: mod.name };
+    const query = { _id: mod._id };
 
     const tasksList = await moduleModel.find(query).populate('task_list');
 
@@ -33,7 +33,7 @@ async function findModuleById(id) {
 
 async function findAndUpdate(id, task) {
   let mod = await moduleModel.findById(id);
-  const query = { name: mod.name };
+  const query = { _id: mod._id };
 
   var updatedMod = await moduleModel.updateOne(query, {
     $push: { task_list: task._id }
@@ -74,7 +74,7 @@ async function deleteModule(id) {
 
 async function deleteTask(modId, taskId) {
   let mod = await moduleModel.findById(modId);
-  const query = { name: mod.name };
+  const query = { _id: mod._id };
 
   return await moduleModel.updateOne(query, {
     $pull: { task_list: taskId }
