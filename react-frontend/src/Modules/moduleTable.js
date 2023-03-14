@@ -20,7 +20,7 @@ function ModuleTable(props) {
   async function makeDeleteCallModule(id) {
     try {
       const response = await axios.delete(
-        'http://localhost:5000/modules/' + id
+        'http://https://team1-todo2.azurewebsites.net/modules/' + id
       );
       return response;
     } catch (error) {
