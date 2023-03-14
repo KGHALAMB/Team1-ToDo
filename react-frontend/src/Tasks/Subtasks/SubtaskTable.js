@@ -18,7 +18,7 @@ function SubtaskTable(props) {
   async function makeDeleteCallModule(subtaskId) {
     try {
       const response = await axios.delete(
-        'http://localhost:5000/modules/' +
+        'https://team1-todo2.azurewebsites.net/modules/' +
           props.modId +
           '/' +
           props.taskId +

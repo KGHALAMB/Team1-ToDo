@@ -49,7 +49,7 @@
 }
 
 .task .line {
-  width:fit-content;
+  width: fit-content;
   border-bottom: 1px solid #ccc;
 }
 
@@ -85,7 +85,7 @@
   background: red;
 }
 
-.circle .high{
+.circle .high {
   border-radius: 50%;
   background: red;
 }
@@ -100,7 +100,7 @@
   margin-bottom: 1rem;
 }
 
-.topBar .date  {
+.topBar .date {
   width: flex;
   height: 2rem;
   font-weight: bold;

@@ -12,9 +12,9 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      lowercase: true,
-      unique: true,
-      index: true
+      lowercase: true
+      // unique: true,
+      // index: true
       /*validate(value) {
       if (value.length < 2) throw new Error("Invalid job.");
     },*/
@@ -22,16 +22,16 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      trim: true,
-      unique: true,
-      index: true
+      trim: true
+      // unique: true,
+      // index: true
     },
     password: {
-      type: String,
-      required: true,
+      type: String
+      /*required: true,
       trim: true,
       unique: true,
-      index: true
+      index: true*/
     },
     module_list: [{ type: Schema.Types.ObjectId, ref: 'Module' }]
   },
