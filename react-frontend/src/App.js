@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import ModView from './Modules/modView';
 import TaskView from './Tasks/taskView';
