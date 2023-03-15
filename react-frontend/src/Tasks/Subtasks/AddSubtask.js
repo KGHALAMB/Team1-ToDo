@@ -8,7 +8,7 @@ const AddSubtask = (props) => {
   const enterSubtaskHandler = async (subtaskData) => {
     try {
       const response = await axios.post(
-        'http://team1-todo2.azurewebsites.net/modules/' +
+        'https://team1-todo2.azurewebsites.net/modules/' +
           props.modId +
           '/' +
           props.taskId,
