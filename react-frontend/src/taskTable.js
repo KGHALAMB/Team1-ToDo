@@ -26,7 +26,7 @@ function TableHeader() {
     <thead>
       <tr>
         <th>Task</th>
-        <th>Category</th>
+        {/*<th>Category</th>*/}
         <th>Time</th>
         <th>Complete</th>
       </tr>
@@ -40,7 +40,7 @@ function TableBody(props) {
     return (
       <tr key={index}>
         <td>{row.title}</td>
-        <td>{row.category}</td>
+        {/*<td>{row.category}</td>*/}
         <td>{row.duration}</td>
         <td>{row.status}</td>
         <td>

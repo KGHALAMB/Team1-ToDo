@@ -20,14 +20,14 @@ app.get('/', (req, res) => {
 app.get('/tasks', async (req, res) => {
   const title = req.query['title'];
   const description = req.query['description'];
-  const category = req.query['category'];
+  /*const category = req.query['category'];*/
   const duration = req.query['duration'];
   const priority = req.query['priority'];
 
   if (
     title === undefined &&
     description === undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority == undefined
   ) {
@@ -41,7 +41,7 @@ app.get('/tasks', async (req, res) => {
   } else if (
     title &&
     description === undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority == undefined
   ) {
@@ -51,14 +51,14 @@ app.get('/tasks', async (req, res) => {
   } else if (
     title === undefined &&
     description &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority == undefined
   ) {
     let result = await taskServices.findTaskByDescription(description);
     result = { tasks_list: result };
     res.send(result);
-  } else if (
+  } /*else if (
     title === undefined &&
     description == undefined &&
     category &&
@@ -68,10 +68,10 @@ app.get('/tasks', async (req, res) => {
     let result = await taskServices.findTaskByCategory(category);
     result = { tasks_list: result };
     res.send(result);
-  } else if (
+  }*/ else if (
     title === undefined &&
     description == undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration &&
     priority == undefined
   ) {
@@ -81,7 +81,7 @@ app.get('/tasks', async (req, res) => {
   } else if (
     title === undefined &&
     description == undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority
   ) {
@@ -92,7 +92,7 @@ app.get('/tasks', async (req, res) => {
     let result = await taskServices.findTask(
       title,
       description,
-      category,
+      /*category,*/
       duration,
       priority
     );
@@ -282,6 +282,89 @@ async function deleteSubtask(taskId, subtaskId) {
     return false;
   }
 }
+/*
+// groups
+app.get('/groups', async (req, res) => {
+  const name = req.query['name'];
+  const admin_list = req.query['admin_list'];
+  const member_list = req.query['member_list'];
+  const module_list = req.query['module_list'];
+  try {
+    const result = await groupServices.getGroups(
+      name,
+      admin_list,
+      member_list,
+      module_list
+    );
+    res.send({ groups_list: result });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('An error ocurred in the server.');
+  }
+});
+
+app.get('/groups/:id', async (req, res) => {
+  const id = req.params['id'];
+  let result = await groupServices.findGroupById(id);
+  if (result === undefined || result === null)
+    res.status(404).send('Resource not found.');
+  else {
+    result = { groups_list: result };
+    res.send(result);
+  }
+});
+
+app.delete('/groups/:id', async (req, res) => {
+  const id = req.params['id'];
+  if (deleteGroupById(id)) res.status(204).end();
+  else res.status(404).send('Resource not found.');
+});
+
+async function deleteGroupById(id) {
+  try {
+    if (await groupServices.findByIdAndDelete(id)) return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+}
+app.post('/groups', async (req, res) => {
+  const group = req.body;
+  const savedGroup = await groupServices.addGroup(group);
+  if (savedGroup) res.status(201).send(savedGroup);
+  else res.status(500).end();
+});
+
+app.patch('/groups/:id', async (req, res) => {
+  const id = req.params['id'];
+  const updatedGroup = req.body;
+  const result = await updateGroup(id, updatedGroup);
+  if (result === 204) res.status(204).end();
+  else if (result === 404) res.status(404).send('Resource not found.');
+  else if (result === 500)
+    res.status(500).send('An error ocurred in the server.');
+});
+
+async function updateGroup(id, updatedGroup) {
+  try {
+    const result = await groupServices.findByIdAndUpdate(id, updatedGroup);
+    if (result) return 204;
+    else return 404;
+  } catch (error) {
+    console.log(error);
+    return 500;
+  }
+}*/
+
+/* === New Function === */
+app.get('/users/usernames', async (req, res) => {
+  try {
+    const usernames = await userServices.getAllUsernames();
+    res.status(200).send(usernames);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+});
 
 // users
 app.get('/users', async (req, res) => {
@@ -290,8 +373,16 @@ app.get('/users', async (req, res) => {
   const name = req.query['name'];
   const email = req.query['email'];
   const username = req.query['username'];
+  const password = req.query['password'];
+  const group_list = req.query['group_list'];
   try {
-    const result = await userServices.getUsers(name, email, username);
+    const result = await userServices.getUsers(
+      name,
+      email,
+      username,
+      password,
+      group_list
+    );
     res.send({ users_list: result });
   } catch (error) {
     console.log(error);
@@ -299,15 +390,13 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/users/:id', async (req, res) => {
-  const id = req.params['id'];
-  let result = await userServices.findUserById(id);
-  if (result === undefined || result === null)
-    res.status(404).send('Resource not found.');
-  else {
-    result = { users_list: result };
-    res.send(result);
-  }
+/* === New Function === */
+app.get('/users/:username/:password', async (req, res) => {
+  const username = req.params['username'];
+  const password = req.params['password'];
+  let result = await userServices.verifyUser(username, password);
+  if (!result) res.status(404).send('Resource not found.');
+  else res.status(200).send(result);
 });
 
 app.delete('/users/:id', async (req, res) => {

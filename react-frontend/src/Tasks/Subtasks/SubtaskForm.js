@@ -6,7 +6,7 @@ function SubtaskForm(props) {
   const [Subtask, setSubtask] = useState({
     title: '',
     description: '',
-    category: '',
+    /*category: '',*/
     date: '', //may need to change to number?
     priority: '3' //^
   });
@@ -17,7 +17,7 @@ function SubtaskForm(props) {
       setSubtask({
         title: value,
         description: Subtask['description'],
-        category: Subtask['category'],
+        /*category: Subtask['category'],*/
         date: Subtask['date'],
         priority: Subtask['priority']
       });
@@ -25,23 +25,23 @@ function SubtaskForm(props) {
       setSubtask({
         title: Subtask['title'],
         description: value,
-        category: Subtask['category'],
+        /*category: Subtask['category'],*/
         date: Subtask['date'],
         priority: Subtask['priority']
       });
-    else if (name === 'category')
+    /*else if (name === 'category')
       setSubtask({
         title: Subtask['title'],
         description: Subtask['description'],
         category: value,
         date: Subtask['date'],
         priority: Subtask['priority']
-      });
+      });*/
     else if (name === 'date')
       setSubtask({
         title: Subtask['title'],
         description: Subtask['description'],
-        category: Subtask['category'],
+        /*category: Subtask['category'],*/
         date: value,
         priority: Subtask['priority']
       });
@@ -49,7 +49,7 @@ function SubtaskForm(props) {
       setSubtask({
         title: Subtask['title'],
         description: Subtask['description'],
-        category: Subtask['category'],
+        /*category: Subtask['category'],*/
         date: Subtask['date'],
         priority: value
       });
@@ -60,7 +60,7 @@ function SubtaskForm(props) {
     setSubtask({
       title: '',
       description: '',
-      category: '',
+      /*category: '',*/
       date: '',
       priority: ''
     });
@@ -84,14 +84,14 @@ function SubtaskForm(props) {
         value={Subtask.description}
         onChange={handleChange}
       />
-      <label htmlFor="Category">Category</label>
+      {/*<label htmlFor="Category">Category</label>
       <input
         type="text"
         name="category"
         _id="category"
         value={Subtask.category}
         onChange={handleChange}
-      />
+  />*/}
       <label htmlFor="Date">Date</label>
       <input
         type="date"

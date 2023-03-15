@@ -24,7 +24,7 @@ const SubtaskItem = (props) => {
         <div>
           <h3>{props.title}</h3>
           <h4>{props.description}</h4>
-          <h4>{props.category}</h4>
+          {/*<h4>{props.category}</h4>*/}
           <button onClick={() => props.removeOne(props.id)}>Delete</button>
         </div>
       </div>

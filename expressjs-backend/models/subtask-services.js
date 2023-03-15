@@ -3,12 +3,17 @@ const subtaskModel = require('./subtask');
 
 connectMongoDB();
 
-async function getSubtasks(title, description, category, duration, priority) {
+async function getSubtasks(
+  title,
+  description /*, category*/,
+  duration,
+  priority
+) {
   let result;
   if (
     title === undefined &&
     description === undefined &&
-    category === undefined &&
+    /*category === undefined &&*/
     duration === undefined &&
     priority === undefined
   ) {
@@ -27,7 +32,7 @@ async function getSubtasks(title, description, category, duration, priority) {
     result = await findSubtask(
       title,
       description,
-      category,
+      /*category,*/
       duration,
       priority
     );
@@ -78,11 +83,16 @@ async function findSubtaskByPriority(priority) {
   return await subtaskModel.find({ priority: priority });
 }
 
-async function findSubtask(title, description, category, duration, priority) {
+async function findSubtask(
+  title,
+  description /*, category*/,
+  duration,
+  priority
+) {
   return await subtaskModel.find({
     title: title,
     description: description,
-    category: category,
+    /*category: category,*/
     duration: duration,
     priority: priority
   });
