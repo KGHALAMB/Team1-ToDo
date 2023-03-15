@@ -1,4 +1,4 @@
-const { ALL } = require('dns');
+//const { ALL } = require('dns');
 const connectMongoDB = require('./mongoose.db.config');
 const userModel = require('./user');
 

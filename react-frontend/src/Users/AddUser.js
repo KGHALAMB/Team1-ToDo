@@ -9,7 +9,7 @@ const AddUser = (props) => {
   const enterUserHandler = async (userData) => {
     try {
       const response = await axios.post(
-        'http://team1-todo2.azurewebsites.net/users',
+        'https://team1-todo2.azurewebsites.net/users',
         userData
       );
 
@@ -31,7 +31,7 @@ const AddUser = (props) => {
   const getUsernames = useCallback(async () => {
     try {
       const response = await axios.get(
-        'http://team1-todo2.azurewebsites.net/users/usernames'
+        'https://team1-todo2.azurewebsites.net/users/usernames'
       );
 
       if (response.status === 404) {
