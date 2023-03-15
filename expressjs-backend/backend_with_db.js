@@ -20,14 +20,14 @@ app.get('/', (req, res) => {
 app.get('/tasks', async (req, res) => {
   const title = req.query['title'];
   const description = req.query['description'];
-  const category = req.query['category'];
+  /*const category = req.query['category'];*/
   const duration = req.query['duration'];
   const priority = req.query['priority'];
 
   if (
     title === undefined &&
     description === undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority == undefined
   ) {
@@ -41,7 +41,7 @@ app.get('/tasks', async (req, res) => {
   } else if (
     title &&
     description === undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority == undefined
   ) {
@@ -51,14 +51,14 @@ app.get('/tasks', async (req, res) => {
   } else if (
     title === undefined &&
     description &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority == undefined
   ) {
     let result = await taskServices.findTaskByDescription(description);
     result = { tasks_list: result };
     res.send(result);
-  } else if (
+  } /*else if (
     title === undefined &&
     description == undefined &&
     category &&
@@ -68,10 +68,10 @@ app.get('/tasks', async (req, res) => {
     let result = await taskServices.findTaskByCategory(category);
     result = { tasks_list: result };
     res.send(result);
-  } else if (
+  }*/ else if (
     title === undefined &&
     description == undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration &&
     priority == undefined
   ) {
@@ -81,7 +81,7 @@ app.get('/tasks', async (req, res) => {
   } else if (
     title === undefined &&
     description == undefined &&
-    category == undefined &&
+    /*category == undefined &&*/
     duration == undefined &&
     priority
   ) {
@@ -92,7 +92,7 @@ app.get('/tasks', async (req, res) => {
     let result = await taskServices.findTask(
       title,
       description,
-      category,
+      /*category,*/
       duration,
       priority
     );

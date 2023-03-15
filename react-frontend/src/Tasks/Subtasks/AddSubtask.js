@@ -21,7 +21,7 @@ const AddSubtask = (props) => {
         id: response.data,
         title: subtaskData.title,
         description: subtaskData.description,
-        category: subtaskData.category,
+        /*category: subtaskData.category,*/
         date: subtaskData.date,
         priority: subtaskData.priority
       };
