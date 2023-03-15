@@ -86,7 +86,7 @@ test('finding a user by id and updating the module list', async () => {
   ).toStrictEqual(savedModule['_id']);
   await userServices.deleteUser(savedUser['_id']);
 });
-/*
+
 test('finding a user by id and deleting a module', async () => {
   const user = {
     name: 'Fran',
@@ -109,7 +109,7 @@ test('finding a user by id and deleting a module', async () => {
   ).toStrictEqual([]);
   await userServices.deleteUser(savedUser['_id']);
 });
-*/
+
 test('finding a user by name', async () => {
   const user = {
     name: 'John',
