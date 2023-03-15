@@ -3,7 +3,8 @@ import classes from './Card.module.css';
 const background_color = {
   moduleColor: classes.moduleColor,
   taskColor: classes.taskColor,
-  subtaskColor: classes.subtaskColor
+  subtaskColor: classes.subtaskColor,
+  signInUpColor: classes.signInUpColor
 };
 
 // const bg_color

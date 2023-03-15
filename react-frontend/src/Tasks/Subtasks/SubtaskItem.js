@@ -61,10 +61,7 @@ const SubtaskItem = (props) => {
         <div className={classes.title}>{props.title}</div>
         <div className={classes.description}>{props.description}</div>
         {showRest && (
-          <div>
-            {/* <div className={classes.steps}>{steps}</div> */}
-            <button onClick={() => props.removeOne(props.id)}>Delete</button>
-          </div>
+          <button onClick={() => props.removeOne(props.id)}>Delete</button>
         )}
       </div>
     </div>

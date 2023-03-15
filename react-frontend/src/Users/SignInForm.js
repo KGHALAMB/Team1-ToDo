@@ -1,46 +1,60 @@
 import React, { useState } from 'react';
 
 const SignInForm = (props) => {
-    cconst[user,setUser] = useState({
-      username: '',   
-      password:'',
-    });   
+  const [user, setUser] = useState({
+    username: '',
+    password: ''
+  });
 
-    function handleChange(e){
-      const { name, value } = e.target;
-      if (name === 'username'){
-        setUser({
-          username: value,
-          password:'',
-        
-        });}
-      
-      else if(name === 'password'){
-        setUser({
-          username: '',
-          password: value,
-        });
-      }
-  
+  function handleChange(e) {
+    const { name, value } = e.target;
+    if (name === 'username') {
+      setUser({
+        username: value,
+        password: user['password']
+      });
+    } else if (name === 'password') {
+      setUser({
+        username: user['username'],
+        password: value
+      });
     }
+  }
 
-  const handleSubmit = (e) => {
-    props.onAdd(user)
-
+  function submitForm() {
+    props.onSub(user);
+    setUser({
+      username: '',
+      password: ''
+    });
   }
 
   return (
-    <div>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username:</label>
-        <input type="username" id="username" value={username} onChange={handleChange} />
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={handleChange} />
-        <button type="submit">Log In</button>
-      </form>
-    </div>
+    <form>
+      <label htmlFor="username">Username:</label>
+      <div>
+        <input
+          type="text"
+          name="username"
+          _id="username"
+          value={user.username}
+          onChange={handleChange}
+        />
+      </div>
+      <label htmlFor="password">Password:</label>
+      <div>
+        <input
+          type="password"
+          name="password"
+          _id="password"
+          value={user.password}
+          onChange={handleChange}
+        />
+      </div>
+      {props.auth && <p>Username or password is incorrect</p>}
+      <input type="button" value="Log In" onClick={submitForm} />
+    </form>
   );
-}
+};
 
 export default SignInForm;

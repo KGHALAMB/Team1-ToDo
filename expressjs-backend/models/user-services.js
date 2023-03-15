@@ -1,3 +1,4 @@
+const { ALL } = require('dns');
 const connectMongoDB = require('./mongoose.db.config');
 const userModel = require('./user');
 
@@ -26,7 +27,7 @@ async function getUsers(name, username, email, module_list) {
 async function findUserById(id) {
   try {
     const u = await userModel.findById(id);
-    const query = { name: u.name };
+    const query = { _id: u._id };
 
     const modulesList = await userModel.find(query).populate('module_list');
 
@@ -50,9 +51,11 @@ async function addUser(user) {
 
 async function findAndUpdate(id, module) {
   let new_user = await userModel.findById(id);
-  const query = { name: new_user.name,
-                  email: new_user.email,
-                  username: new_user.username};
+  const query = {
+    name: new_user.name,
+    email: new_user.email,
+    username: new_user.username
+  };
 
   var updatedUser = await userModel.updateOne(query, {
     $push: { module_list: module._id }
@@ -60,6 +63,29 @@ async function findAndUpdate(id, module) {
 
   new_user.save();
   return updatedUser;
+}
+
+async function getAllUsernames() {
+  var usernameList = (await userModel.find()).map(function (p) {
+    return p.username;
+  });
+
+  return usernameList;
+}
+
+async function verifyUser(username, password) {
+  const user_query = { username: username, password: password };
+  // const pass_query = { password: password };
+  try {
+    let userId = await userModel.find(user_query);
+    console.log(userId);
+    userId = userId[0]['_id'];
+    let user = await userModel.findById(userId);
+    console.log(user);
+    return user;
+  } catch {
+    return false;
+  }
 }
 
 async function findUserByName(name) {
@@ -101,3 +127,5 @@ exports.addUser = addUser;
 exports.findAndUpdate = findAndUpdate;
 exports.deleteUser = deleteUser;
 exports.deleteModule = deleteModule;
+exports.getAllUsernames = getAllUsernames;
+exports.verifyUser = verifyUser;

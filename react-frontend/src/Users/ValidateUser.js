@@ -1,34 +1,34 @@
- 
-import React from 'react';
+import React, { useState } from 'react';
+import Card from '../UI/Card';
 import axios from 'axios';
 import SignInForm from './SignInForm';
-import Modal from '../UI/Modal';
 
-const ValidateUser = (props) => {
-    const enterUserHandler = async (userData) => {
-      try {
-        const response = await axios.get(
-            `http://localhost:5000/users?username=${userData.username}&password=${userData.password}`
-        );
-        if (response.status !== 200 || response.data.length === 0) {
-            throw new Error('Invalid username or password');
-        }
-        const existingUser = response.data[0];
-        props.onAdded(existingUser);
-      } catch (err) {
-        console.log(err.message || 'Something went wrong!');
+function ValidateUser(props) {
+  const [authFail, setAuthFail] = useState(false);
+  async function enterUserHandler(userData) {
+    try {
+      const response = await axios.get(
+        'http://localhost:5000/users/' +
+          userData.username +
+          '/' +
+          userData.password
+      );
+      if (response.status !== 200 || response.data.length === 0) {
+        setAuthFail(true);
+        throw new Error('Invalid username or password');
       }
-    };
-  
-    return (
-      <Modal onClose={props.onClose}>
-        <SignInForm
-          onClose={props.onClose}
-          onAdd={enterUserHandler}
-        />
-      </Modal>
-    );
-  };
-  
-  export default ValidateUser;
+      setAuthFail(false);
+      props.valid(response.data);
+    } catch (err) {
+      setAuthFail(true);
+    }
+  }
 
+  return (
+    <Card color={'signInUpColor'}>
+      <SignInForm onSub={enterUserHandler} auth={authFail} />
+    </Card>
+  );
+}
+
+export default ValidateUser;
