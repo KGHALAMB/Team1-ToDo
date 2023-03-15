@@ -38,8 +38,10 @@ function ModuleTable(props) {
       id={mod.id}
       key={mod.id}
       name={mod.title}
+      user_list={mod.user_list}
       taskView={returnTaskView}
       removeOne={removeOneModule}
+      //shareModule={}
       setMod={props.setMod}
     />
   ));

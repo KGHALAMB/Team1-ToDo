@@ -25,7 +25,8 @@ function ModView(props) {
       for (const index in data) {
         loadedModules.push({
           id: data[index]._id,
-          title: data[index].name
+          title: data[index].name,
+          user_list: data[index].user_list
         });
       }
 

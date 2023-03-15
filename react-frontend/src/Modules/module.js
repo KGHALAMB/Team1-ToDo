@@ -7,6 +7,7 @@ const ModuleItem = (props) => {
       <div>
         <h3>{props.name}</h3>
         <button onClick={() => props.taskView(props.id)}>{props.name}</button>
+        <button>Share</button>
         <button onClick={() => props.removeOne(props.id)}>Delete</button>
       </div>
     </li>
