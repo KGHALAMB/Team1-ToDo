@@ -8,7 +8,7 @@ function ValidateUser(props) {
   async function enterUserHandler(userData) {
     try {
       const response = await axios.get(
-        'http://localhost:5000/users/' +
+        'http://team1-todo2.azurewebsites.net/users/' +
           userData.username +
           '/' +
           userData.password

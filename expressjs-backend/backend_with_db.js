@@ -356,6 +356,7 @@ async function updateGroup(id, updatedGroup) {
   }
 }*/
 
+/* === New Function === */
 app.get('/users/usernames', async (req, res) => {
   try {
     const usernames = await userServices.getAllUsernames();
@@ -389,12 +390,11 @@ app.get('/users', async (req, res) => {
   }
 });
 
+/* === New Function === */
 app.get('/users/:username/:password', async (req, res) => {
   const username = req.params['username'];
   const password = req.params['password'];
   let result = await userServices.verifyUser(username, password);
-  // console.log(result);
-  // let result = await userServices.findUserById(id);
   if (!result) res.status(404).send('Resource not found.');
   else res.status(200).send(result);
 });
