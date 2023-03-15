@@ -1,68 +1,104 @@
 import React, { useState } from 'react';
 
 const SignUpForm = (props) => {
-    const[user,setUser] = useState({
-      username: '',
-      name: '',
-      password:'',
-      email:''
-    });    
-    
-  function handleChange(e){
+  const [user, setUser] = useState({
+    username: '',
+    name: '',
+    password: '',
+    email: ''
+  });
+  const [usernameTaken, setUsernameTaken] = useState(false);
+
+  function handleChange(e) {
     const { name, value } = e.target;
-    if (name === 'username'){
+    if (name === 'username') {
+      if (props.usernames.includes(value.toString())) {
+        setUsernameTaken(true);
+      } else {
+        setUsernameTaken(false);
+      }
       setUser({
         username: value,
-        name: '',
-        password:'',
-        email:'',
-      });}
-    else if(name === 'name'){
+        name: user['name'],
+        password: user['password'],
+        email: user['email']
+      });
+    } else if (name === 'name') {
       setUser({
-        username: '',
+        username: user['username'],
         name: value,
-        password:'',
-        email:'',name
+        password: user['password'],
+        email: user['email']
+      });
+    } else if (name === 'password') {
+      setUser({
+        username: user['username'],
+        name: user['name'],
+        password: value,
+        email: user['email']
+      });
+    } else if (name === 'email') {
+      setUser({
+        username: user['username'],
+        name: user['name'],
+        password: user['password'],
+        email: value
       });
     }
-    else if(name === 'password'){
+  }
+  function submitForm() {
+    if (!usernameTaken) {
+      props.onAdd(user);
       setUser({
         username: '',
         name: '',
-        password: value,
-        email:'',
+        password: '',
+        email: ''
       });
     }
-      else if(name === 'email'){
-        setUser({
-          username: '',
-          name: '',
-          password: '',
-          email: value,
-        });
-    }
-
-  }
-  const handleSubmit = (e) => {
-    props.onAdd(user)
   }
 
   return (
     <div>
       <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="Name">Name:</label>
-        <input type="text" id="name" value={name} onChange={handleChange} />
+      <form>
+        <label htmlFor="name">Name:</label>
+        <input
+          type="text"
+          name="name"
+          _id="name"
+          value={user.name}
+          onChange={handleChange}
+        />
         <label htmlFor="username">Username:</label>
-        <input type="text" id="username" value={username} onChange={handleChange} />
+        <input
+          type="text"
+          name="username"
+          _id="username"
+          value={user.username}
+          onChange={handleChange}
+        />
+        {usernameTaken && <p color="red">This username is already taken</p>}
         <label htmlFor="email">Email:</label>
-        <input type="email" id="email" value={email} onChange={handleChange} />
+        <input
+          type="email"
+          name="email"
+          _id="email"
+          value={user.email}
+          onChange={handleChange}
+        />
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" value={password} onChange={handleChange} />
-        <button type="submit">Sign Up</button>
+        <input
+          type="password"
+          name="password"
+          _id="password"
+          value={user.password}
+          onChange={handleChange}
+        />
+        <input type="button" value="Sign Up" onClick={submitForm} />
       </form>
     </div>
   );
-}
+};
 
 export default SignUpForm;

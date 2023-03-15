@@ -356,6 +356,16 @@ async function updateGroup(id, updatedGroup) {
   }
 }*/
 
+/* === New Function === */
+app.get('/users/usernames', async (req, res) => {
+  try {
+    const usernames = await userServices.getAllUsernames();
+    res.status(200).send(usernames);
+  } catch (error) {
+    res.status(404).send(error);
+  }
+});
+
 // users
 app.get('/users', async (req, res) => {
   //res.send(users); //HTTP code 200 is set by default. See an alternative below
@@ -380,15 +390,13 @@ app.get('/users', async (req, res) => {
   }
 });
 
-app.get('/users/:id', async (req, res) => {
-  const id = req.params['id'];
-  let result = await userServices.findUserById(id);
-  if (result === undefined || result === null)
-    res.status(404).send('Resource not found.');
-  else {
-    result = { users_list: result };
-    res.send(result);
-  }
+/* === New Function === */
+app.get('/users/:username/:password', async (req, res) => {
+  const username = req.params['username'];
+  const password = req.params['password'];
+  let result = await userServices.verifyUser(username, password);
+  if (!result) res.status(404).send('Resource not found.');
+  else res.status(200).send(result);
 });
 
 app.delete('/users/:id', async (req, res) => {

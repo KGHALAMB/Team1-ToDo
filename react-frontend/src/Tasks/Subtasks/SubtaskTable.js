@@ -40,7 +40,6 @@ function SubtaskTable(props) {
           description={subtask.description}
           date={subtask.date}
           priority={subtask.priority}
-          steps={subtask.steps}
           removeOne={removeOneSubtask}
           setTask={props.setTask}
         />

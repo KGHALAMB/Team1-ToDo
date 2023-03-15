@@ -8,8 +8,7 @@ function SubtaskForm(props) {
     description: '',
     category: '',
     date: '', //may need to change to number?
-    priority: '2', //^
-    steps: []
+    priority: '2'
   });
 
   function handleChange(event) {

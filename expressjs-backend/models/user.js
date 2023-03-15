@@ -22,8 +22,8 @@ const UserSchema = new mongoose.Schema(
     username: {
       type: String,
       required: true,
-      trim: true
-      // unique: true,
+      trim: true,
+      unique: true
       // index: true
     },
     password: {
@@ -35,7 +35,7 @@ const UserSchema = new mongoose.Schema(
     },
     module_list: [{ type: Schema.Types.ObjectId, ref: 'Module' }]
   },
-  { collection: 'users_list' }
+  { collection: 'users' }
 );
 
 const User = mongoose.model('User', UserSchema);

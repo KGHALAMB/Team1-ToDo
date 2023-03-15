@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classes from './SubtaskItem.module.css';
 
-const data = ['Test step', 'Test step two'];
+// const data = ['Test step', 'Test step two'];
 
 const month_dict = {
   '01': 'Jan',
@@ -29,14 +29,14 @@ const SubtaskItem = (props) => {
   };
   const bg_color = priority_color[props.priority];
 
-  const steps = data.map((step, index) => (
-    <div className={classes.step} key={index}>
-      <div className={classes.stepAlign}>
-        <div className={classes.bulletPoint} />
-        {step}
-      </div>
-    </div>
-  ));
+  // const steps = data.map((step, index) => (
+  //   <div className={classes.step} key={index}>
+  //     <div className={classes.stepAlign}>
+  //       <div className={classes.bulletPoint} />
+  //       {step}
+  //     </div>
+  //   </div>
+  // ));
   // const steps = props.steps.map((step, index) => <h5 key={index}>{step}</h5>);
 
   const onShowRest = () => {
@@ -61,10 +61,7 @@ const SubtaskItem = (props) => {
         <div className={classes.title}>{props.title}</div>
         <div className={classes.description}>{props.description}</div>
         {showRest && (
-          <div>
-            <div className={classes.steps}>{steps}</div>
-            <button onClick={() => props.removeOne(props.id)}>Delete</button>
-          </div>
+          <button onClick={() => props.removeOne(props.id)}>Delete</button>
         )}
       </div>
     </div>

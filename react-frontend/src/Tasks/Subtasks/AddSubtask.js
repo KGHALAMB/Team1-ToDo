@@ -8,7 +8,10 @@ const AddSubtask = (props) => {
   const enterSubtaskHandler = async (subtaskData) => {
     try {
       const response = await axios.post(
-        'https://team1-todo2.azurewebsites.net//modules/' + props.modId + '/' + props.taskId,
+        'http://team1-todo2.azurewebsites.net/modules/' +
+          props.modId +
+          '/' +
+          props.taskId,
         subtaskData
       );
       if (response.status !== 201) {
@@ -20,8 +23,7 @@ const AddSubtask = (props) => {
         description: subtaskData.description,
         category: subtaskData.category,
         date: subtaskData.date,
-        priority: subtaskData.priority,
-        steps: subtaskData.steps
+        priority: subtaskData.priority
       };
       props.onAdded(createdSubtask);
     } catch (err) {
