@@ -1,5 +1,12 @@
 # Team1-ToDo
 
+Backend CI and CD with tests:
+![example workflow](https://github.com/KGHALAMB/Team1-ToDo/actions/workflows/main_team1-todo2.yml/badge.svg)
+
+Frontend CI and CD: 
+![example workflow](https://github.com/KGHALAMB/Team1-ToDo/actions/workflows/azure-static-web-apps-orange-island-0045eaf1e.yml/badge.svg)
+
+
 Project blurb:
 This project encapsulates this teams work on the To Do List project assigned to them for CSC 307.  This application allows users to log into an account, or create a new account.  The user will then be lead to a page in which they can create, delete or remove modules. Within each module, there are tasks that can be viewed in their own page.  In this taskview, the user can create subtasks for the tasks that display criteria like, description, due date and priority.  
 
