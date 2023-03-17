@@ -9,7 +9,8 @@ async function getUsers(name, username, email, module_list) {
   if (
     name === undefined &&
     username === undefined &&
-    module_list === undefined
+    module_list === undefined &&
+    email === undefined
   ) {
     result = await userModel.find();
   } else if (username && !name && !email && !module_list) {
@@ -112,7 +113,7 @@ async function deleteUser(id) {
 
 async function deleteModule(userId, modId) {
   let user = await userModel.findById(userId);
-  const query = { name: user.name };
+  const query = { name: user['name'] };
 
   return await userModel.updateOne(query, {
     $pull: { module_list: modId }

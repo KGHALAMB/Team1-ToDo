@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const userServices = require('./user-services.js');
 const userModel = require('./user');
 const moduleModel = require('./module');
+const moduleServices = require('./module-services.js');
+
 connectMongoDB();
 
 test('adding a user', async () => {
@@ -189,12 +191,77 @@ test('getting a list of users', async () => {
   expect(result1[0]['_id']).toStrictEqual(savedUser['_id']);
   let result2 = await userServices.getUsers(
     'Fran',
-    'Fran123',
+    undefined,
+    undefined,
+    undefined
+  );
+  expect(result2[0]['_id']).toStrictEqual(savedUser['_id']);
+  let result3 = await userServices.getUsers(
+    undefined,
+    undefined,
     'fran123@gmail.com',
     undefined
   );
-  expect(result2[0]['name']).toStrictEqual(savedUser['name']);
-
+  expect(result3[0]['_id']).toStrictEqual(savedUser['_id']);
+  let result4 = await userServices.getUsers(
+    undefined,
+    'Fran123',
+    undefined,
+    undefined
+  );
+  expect(result4[0]['_id']).toStrictEqual(savedUser['_id']);
+  await userServices.deleteUser(savedUser['_id']);
+});
+test('getting all the usernames', async () => {
+  const user = {
+    name: 'Bob',
+    email: 'bob123@gmail.com',
+    username: 'Bob123'
+  };
+  let target = new userModel(user);
+  let savedUser = await userServices.addUser(target);
+  let result = await userServices.getAllUsernames();
+  expect(result).toStrictEqual(
+    (await userModel.find()).map(function (p) {
+      return p.username;
+    })
+  );
+  await userServices.deleteUser(savedUser['_id']);
+});
+test('verifying user', async () => {
+  const user = {
+    name: 'Bob',
+    email: 'bob123@gmail.com',
+    username: 'Bob123',
+    password: 'df0891h709dn71w'
+  };
+  let target = new userModel(user);
+  let savedUser = await userServices.addUser(target);
+  let result = await userServices.verifyUser(
+    savedUser['username'],
+    savedUser['password']
+  );
+  expect(result).not.toBe(false);
+  let result2 = await userServices.verifyUser(savedUser['username'], '');
+  expect(result2).toBe(false);
+  await userServices.deleteUser(savedUser['_id']);
+});
+test('removing module from a user', async () => {
+  const module = {
+    name: 'Work'
+  };
+  let targetMod = new moduleModel(module);
+  await moduleServices.addModule(targetMod);
+  const user = {
+    name: 'Bob',
+    email: 'bob123@gmail.com',
+    username: 'Bob123',
+    module_list: [targetMod['_id']]
+  };
+  let target = new userModel(user);
+  let savedUser = await userServices.addUser(target);
+  let result = await userServices.deleteModule(target['_id'], targetMod['_id']);
+  expect(result['modifiedCount']).toStrictEqual(1);
   await userServices.deleteUser(savedUser['_id']);
 });
 afterAll(() => {
