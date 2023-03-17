@@ -14,7 +14,7 @@ Development environment:
 * Extensions: ESLint and Prettier
 * Frontend: Reactjs
 * Backend: Nodejs with expressjs framework
-* Cloud Database: MongoDB Atlas
+* Cloud Database: MongoDB Atlas - You must gain access to the database through an administrator and set up your local .env file accordingly
 * Unit Tests: Jest
 * Linter: Prettier formatting with ESLint (AirBnB styleguide) https://airbnb.io/javascript/react/
 * Make sure to run npm install
