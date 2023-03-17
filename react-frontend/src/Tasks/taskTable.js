@@ -20,7 +20,10 @@ function TaskTable(props) {
   async function makeDeleteCallModule(id) {
     try {
       const response = await axios.delete(
-        'https://team1-todo2.azurewebsites.net/modules/' + props.modId + '/' + id
+        'https://team1-todo2.azurewebsites.net/modules/' +
+          props.modId +
+          '/' +
+          id
       );
       return response;
     } catch (error) {

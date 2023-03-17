@@ -39,8 +39,7 @@ function SubtaskForm(props) {
         date: Subtask['date'],
         priority: Subtask['priority'],
         steps: Subtask['steps']
-      });*/
-    else if (name === 'date')
+      });*/ else if (name === 'date')
       setSubtask({
         title: Subtask['title'],
         description: Subtask['description'],
@@ -99,7 +98,7 @@ function SubtaskForm(props) {
         value={Subtask.description}
         onChange={handleChange}
       />
-{/*<label htmlFor="Category">Category</label>
+      {/*<label htmlFor="Category">Category</label>
       <input
         type="text"
         name="category"
