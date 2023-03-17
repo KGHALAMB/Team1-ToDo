@@ -21,26 +21,6 @@ Development environment:
 
 UML Diagram(Last Updated Mar 6th): https://drive.google.com/file/d/1-agvxAlUC0QfMvS3_2xPoUauRNKNBA8V/view
 
-Code Coverage Report:
-//Start
------------------------|---------|----------|---------|---------|-------------------
-File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
------------------------|---------|----------|---------|---------|-------------------
-All files              |     100 |      100 |     100 |     100 |                   
- module-services.js    |     100 |      100 |     100 |     100 |                   
- module.js             |     100 |      100 |     100 |     100 |                   
- mongoose.db.config.js |     100 |      100 |     100 |     100 |                   
- subtask-services.js   |     100 |      100 |     100 |     100 |                   
- subtask.js            |     100 |      100 |     100 |     100 |                   
- task-services.js      |     100 |      100 |     100 |     100 |                   
- task.js               |     100 |      100 |     100 |     100 |                   
- user-services.js      |     100 |      100 |     100 |     100 |                   
- user.js               |     100 |      100 |     100 |     100 |                   
------------------------|---------|----------|---------|---------|-------------------
-
-Test Suites: 4 passed, 4 total
-Tests:       43 passed, 43 total
-Snapshots:   0 total
-Time:        15.36 s
-Ran all test suites.
-//End
+Code Coverage Report (From Mar 17th):
+Ran with "npx jest --coverage" in backend folder
+![image](https://user-images.githubusercontent.com/97202645/226067993-a94df244-5b83-4726-b438-c2424a622128.png)
